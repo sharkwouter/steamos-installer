@@ -95,3 +95,4 @@ Or support me by donating - Donate via [PayPal](https://www.paypal.com/cgi-bin/w
 - steam-scene.com for awarding the top prize in their SteamOS modding contest to Ye Olde SteamOSe
 - Valve Software for their kind donation of a Steam Controller prototype
 - Collabora Ltd for their kind donation of 2 x 500GB hard disks for testing
+- Wouter Wijsman (Shark) for his help with ongoing maintenance.
