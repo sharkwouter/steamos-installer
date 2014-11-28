@@ -40,7 +40,6 @@ gir1.2-vte-2.90_0.32.2-1+bsos7_amd64.deb
 
 Applications added from the Debian repo:
 anacron
-gdebi
 gnome-tweak-tool
 gksu
 gufw
@@ -50,8 +49,6 @@ Packages added from the Debian repo:
 anacron_2.3-19_amd64.deb
 gksu_2.0.2-6_amd64.deb
 libgksu2-0_2.0.13~pre1-6_amd64.deb
-gdebi_0.8.7_all.deb
-gdebi-core_0.8.7_all.deb
 gnome-tweak-tool_3.4.0.1-2_all.deb
 gufw_12.10.0-1_all.deb
 ufw_0.31.1-2_all.deb
