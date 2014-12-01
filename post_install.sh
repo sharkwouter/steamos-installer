@@ -66,7 +66,6 @@ sed -i "s/PermitRootLogin\ yes/PermitRootLogin\ no/" /etc/ssh/sshd_config
 
 # Configure the highest possible frambuffer resolution in in for plymouth in /etc/default/grub
 FB=$(hwinfo --framebuffer| grep "`hwinfo --framebuffer|grep "24 bits"|cut -d":" -f2|sort -g|tail -1`"|cut -d" " -f 4|tr -d ":")
-echo $FB
 sed -i "s/GRUB\_CMDLINE\_LINUX\_DEFAULT\=\"quiet splash\"/GRUB\_CMDLINE\_LINUX\_DEFAULT\=\"quiet splash\ vga\=${FB}\"/" /etc/default/grub
 
 /usr/lib/x86_64-linux-gnu/lightdm/lightdm-set-defaults -a steam -s steamos
