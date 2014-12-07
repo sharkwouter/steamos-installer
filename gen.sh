@@ -137,7 +137,7 @@ verify ( ) {
 #	Re-build the cdrom installer package repositories
 #	Generate md5sums
 #	Build ISO
-create ( ) {
+createbuildroot ( ) {
 
 	#Delete 32-bit udebs and d-i, as SteamOS is 64-bit only
 	echo "Deleting 32-bit garbage from ${BUILD}..."
@@ -209,7 +209,9 @@ create ( ) {
 	sed -i 's/fglrx-driver//' ${BUILD}/.disk/base_include
 	sed -i 's/fglrx-modules-dkms//' ${BUILD}/.disk/base_include
 	sed -i 's/libgl1-fglrx-glx//' ${BUILD}/.disk/base_include
+}
 
+createiso ( ) {
 	#Build the ISO
 	echo "Building ${ISOPATH}/${ISONAME} ..."
 	xorriso -as mkisofs -r -checksum_algorithm_iso md5,sha1,sha256,sha512 \
@@ -268,8 +270,11 @@ verify
 #Download and extract the SteamOSInstaller.zip
 extract
 
-#Build everything for Rocket installer
-create
+#Build the buildroot for Rocket installer
+createbuildroot
+
+#Build the iso for Rocket installer
+createiso
 
 #Generate rocket.iso.md5 file
 mkchecksum

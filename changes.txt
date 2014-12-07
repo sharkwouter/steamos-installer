@@ -51,13 +51,8 @@ Packages added from the Debian repo:
 anacron_2.3-19_amd64.deb
 gksu_2.0.2-6_amd64.deb
 libgksu2-0_2.0.13~pre1-6_amd64.deb
-libx86-1_1.1+ds1-10_amd64.deb
 gnome-tweak-tool_3.4.0.1-2_all.deb
 gufw_12.10.0-1_all.deb
-hwinfo_16.0-2.2_amd64.deb
-libhd16_16.0-2.2_amd64.deb
-libhal1_0.5.14-8_amd64.deb
-v86d_0.1.10-1_amd64.deb
 ufw_0.31.1-2_all.deb
 
 Configuration changes:
