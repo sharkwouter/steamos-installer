@@ -13,6 +13,8 @@
 - VaporOS installs many tools to improve the command line experience. This includes bash completion, iotop, htop, mesa-utils, pastebinit, git and lsof. 
 - VaporOS has no mouse acceleration.
 
+For a more detailed list of added package, take a look at the file changes.txt.
+
 # Planned improvements
 
 - Support for Legacy AMD 
