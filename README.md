@@ -43,7 +43,7 @@ Plug in the USB stick and run `dmesg`; look for a line similar to this:
 
 In this case, `sdc` is the device name for the USB stick you just inserted. Now we put the installer on the stick, as root (e.g. use `sudo`) run 
 
-    dd bs=1M if=/path/to/rocket.iso of=/dev/sdX 
+    dd bs=1M if=/path/to/vaporosX.iso of=/dev/sdX 
     
 sdX should be the USB stick device from the information you received from `dmesg`. Be sure to use sdX, not sdX1 or sdX2. Then boot into the stick.
 
