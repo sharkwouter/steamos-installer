@@ -311,7 +311,7 @@ fi
 if test "${ISEFI}" = "Y"; then
 echo "GRUB_CMDLINE_LINUX_DEFAULT=\"quiet splash\"" >> /target/etc/default/grub
 else
-echo "GRUB_CMDLINE_LINUX_DEFAULT=\"quiet splash vga=0x318\"" >> /target/etc/default/grub
+echo "GRUB_CMDLINE_LINUX_DEFAULT=\"quiet splash vga=0x0318\"" >> /target/etc/default/grub
 fi
 
 cat - >> /target/etc/grub.d/40_custom << EOF
