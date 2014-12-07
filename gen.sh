@@ -6,8 +6,8 @@ APTUDEBCONF="./ftparchive/apt-ftparchive-udeb.conf"
 DISTNAME="alchemist"
 CACHEDIR="./cache"
 ISOPATH="."
-ISONAME="vaporos-beta5.iso"
-ISOVNAME="VaporOS-beta5"
+ISONAME="vaporos-beta6.iso"
+ISOVNAME="VaporOS-beta6"
 UPSTREAMURL="http://repo.steampowered.com"
 STEAMINSTALLFILE="SteamOSDVD.iso"
 MD5SUMFILE="MD5SUMS"
@@ -205,10 +205,6 @@ createbuildroot ( ) {
 		echo "Removing old ISO ${ISOPATH}/${ISONAME}"
 		rm -f "${ISOPATH}/${ISONAME}"
 	fi
-
-	sed -i 's/fglrx-driver//' ${BUILD}/.disk/base_include
-	sed -i 's/fglrx-modules-dkms//' ${BUILD}/.disk/base_include
-	sed -i 's/libgl1-fglrx-glx//' ${BUILD}/.disk/base_include
 }
 
 createiso ( ) {
