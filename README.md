@@ -17,7 +17,7 @@ For a more detailed list of added package, take a look at the file changes.txt.
 
 # Planned improvements
 
-- Support for Legacy AMD 
+- Ideas welcome 
 
 # How to install?
 
@@ -64,7 +64,6 @@ Beyond that, just follow Valve's instructions from [their site](http://store.ste
 - Running in Virtualbox is not supported.
 - Some games, like Dota 2, currently don't launch. This is not specific to VaporOS.
 - On some Nvidia systems, sound over hdmi doesn't work. This is not specific to VaporOS. A fix can be found here: http://steamcommunity.com/groups/steamuniverse/discussions/1/35221584678322281/#c35222218678959581
-- aticonfig --initial is not ran by the new AMD drivers. You'll need to run this manually after booting into a black screen.
 
 # Special Thanks
 
