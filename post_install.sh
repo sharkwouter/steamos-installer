@@ -64,10 +64,6 @@ ufw allow 27031/udp
 # Disallow root login on ssh
 sed -i "s/PermitRootLogin\ yes/PermitRootLogin\ no/" /etc/ssh/sshd_config
 
-# Configure the highest possible frambuffer resolution in in for plymouth in /etc/default/grub
-FB=$(hwinfo --framebuffer| grep "`hwinfo --framebuffer|grep "24 bits"|cut -d":" -f2|sort -g|tail -1`"|cut -d" " -f 4|tr -d ":")
-sed -i "s/GRUB\_CMDLINE\_LINUX\_DEFAULT\=\"quiet splash\"/GRUB\_CMDLINE\_LINUX\_DEFAULT\=\"quiet splash\ vga\=${FB}\"/" /etc/default/grub
-
 /usr/lib/x86_64-linux-gnu/lightdm/lightdm-set-defaults -a steam -s steamos
 dbus-send --system --type=method_call --print-reply --dest=org.freedesktop.Accounts /org/freedesktop/Accounts/User1000 org.freedesktop.Accounts.User.SetXSession string:gnome
 dbus-send --system --type=method_call --print-reply --dest=org.freedesktop.Accounts /org/freedesktop/Accounts/User1001 org.freedesktop.Accounts.User.SetXSession string:steamos
@@ -285,7 +281,6 @@ cat - > /target/etc/default/grub << EOF
 GRUB_DEFAULT=saved
 GRUB_HIDDEN_TIMEOUT_QUIET=true
 GRUB_DISTRIBUTOR=\`lsb_release -i -s 2> /dev/null || echo Debian\`
-GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
 GRUB_CMDLINE_LINUX=""
 GRUB_BACKGROUND=/usr/share/plymouth/themes/steamos/steam.png
 GRUB_DISABLE_LINUX_RECOVERY="true"
@@ -311,6 +306,14 @@ ISEFI=Y
 else
 ISEFI=N
 fi
+
+# enable splash adn set framebuffer size to 1024x768x24 for non-efi systems
+if test "${ISEFI}" = "Y"; then
+echo "GRUB_CMDLINE_LINUX_DEFAULT=\"quiet splash\"" >> /target/etc/default/grub
+else
+echo "GRUB_CMDLINE_LINUX_DEFAULT=\"quiet splash vga=0x318\"" >> /target/etc/default/grub
+fi
+
 cat - >> /target/etc/grub.d/40_custom << EOF
 menuentry "Capture System Partition"{
   search --set -f /live-hd/vmlinuz
