@@ -6,13 +6,13 @@ APTUDEBCONF="./ftparchive/apt-ftparchive-udeb.conf"
 DISTNAME="alchemist"
 CACHEDIR="./cache"
 ISOPATH="."
-ISONAME="vaporos-beta6.iso"
-ISOVNAME="VaporOS-beta6"
+ISONAME="vaporos-beta7.iso"
+ISOVNAME="VaporOS-beta7"
 UPSTREAMURL="http://repo.steampowered.com"
 STEAMINSTALLFILE="SteamOSDVD.iso"
 MD5SUMFILE="MD5SUMS"
 KNOWNINSTALLER="e0583f17ea8f6d5307b74a0d28a99a5e"
-REPODIR="./archive-mirror/"
+REPODIR="./archive-mirror/mirror/repo.steampowered.com/steamos"
 
 #Show how to use gen.sh
 usage ( )
