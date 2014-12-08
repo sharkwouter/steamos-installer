@@ -148,7 +148,8 @@ createbuildroot ( ) {
 
 	#Copy over updated and added debs
 	#First remove uneeded debs
-	debstoremove="pool/main/l/lvm2/dmsetup_1.02.74-8+bsos7_amd64.deb pool/main/l/lvm2/libdevmapper1.02.1-udeb_1.02.74-8+bsos7_amd64.udeb pool/main/l/lvm2/dmsetup-udeb_1.02.74-8+bsos7_amd64.udeb pool/main/l/lvm2/libdevmapper-event1.02.1_1.02.74-8+bsos7_amd64.deb pool/main/l/lvm2/lvm2-udeb_2.02.95-8+bsos7_amd64.udeb pool/main/l/lvm2/libdevmapper1.02.1_1.02.74-8+bsos7_amd64.deb pool/main/l/lvm2/liblvm2app2.2_2.02.95-8+bsos7_amd64.deb pool/main/c/curl/libcurl3-gnutls_7.26.0-1+wheezy10+bsos1_amd64.deb pool/main/c/curl/libcurl3_7.26.0-1+wheezy10+bsos1_amd64.deb pool/main/c/curl/curl_7.26.0-1+wheezy10+bsos1_amd64.deb pool/main/b/base-files/base-files_7.1wheezy6+steamos1+bsos1_amd64.deb pool/main/l/linux/linux-headers-3.10-4-amd64_3.10.11-1+steamos29+bsos1_amd64.deb pool/main/l/linux/linux-image-3.10-4-amd64_3.10.11-1+steamos29+bsos1_amd64.deb pool/main/l/linux/linux-headers-3.10-4-common_3.10.11-1+steamos29+bsos1_amd64.deb pool/main/l/linux-latest/linux-headers-amd64_3.10+52+steamos1_amd64.deb pool/main/l/linux-latest/linux-image-amd64_3.10+52+steamos1_amd64.deb pool/main/d/debian-archive-keyring/debian-archive-keyring_2012.4+bsos6_all.deb pool/main/d/debian-archive-keyring/debian-archive-keyring-udeb_2012.4+bsos6_all.udeb pool/main/e/eglibc/libc6_2.17-97+steamos1+bsos1_amd64.deb pool/main/e/eglibc/libc6_2.17-97+steamos1+bsos1_i386.deb pool/main/e/eglibc/libc6-udeb_2.17-97+steamos1+bsos1_amd64.udeb pool/main/e/eglibc/libc-bin_2.17-97+steamos1+bsos1_amd64.deb pool/main/e/eglibc/libc-bin_2.17-97+steamos1+bsos1_i386.deb pool/main/e/eglibc/locales_2.17-97+steamos1+bsos1_all.deb pool/main/e/eglibc/multiarch-support_2.17-97+steamos1+bsos1_i386.deb pool/main/e/eglibc/multiarch-support_2.17-97+steamos1+bsos1_amd64.deb pool/main/f/file/file_5.11-2+deb7u5+bsos1_amd64.deb pool/main/f/file/libmagic1_5.11-2+deb7u5+bsos1_amd64.deb pool/main/f/firmware-free/firmware-linux-free_3.2+steamos8+bsos1_all.deb pool/main/c/ca-certificates/ca-certificates_20130119+bsos6_all.deb pool/main/f/flac/libflac8_1.2.1-6+bsos7_amd64.deb pool/main/libg/libgcrypt11/libgcrypt11_1.5.0-5+deb7u1+bsos6_amd64.deb pool/main/libg/libgcrypt11/libgcrypt11-udeb_1.5.0-5+deb7u1+bsos6_amd64.udeb pool/main/libt/libtasn1-3/libtasn1-3_2.13-2+bsos7_amd64.deb pool/main/t/tzdata/tzdata_2014e-0wheezy1+bsos1_all.deb pool/main/s/steamos-compositor/steamos-compositor_1.23+bsos1_amd64.deb pool/main/s/steamos-updatelevel/steamos-updatelevel_145_all.deb pool/main/u/unattended-upgrades/unattended-upgrades_0.82.9+steamos2+bsos1_all.deb pool/main/libg/libgcrypt11/libkeyutils1_1.5.5-3+deb7u1+bsos1_amd64.deb pool/non-free/f/fglrx-driver/fglrx-driver_14.4.2-1+bsos1_amd64.deb pool/non-free/f/fglrx-driver/fglrx-driver_14.4.2-1+bsos1_i386.deb pool/non-free/f/fglrx-driver/fglrx-modules-dkms_14.4.2-1+bsos1_amd64.deb pool/non-free/f/fglrx-driver/fglrx-modules-dkms_14.4.2-1+bsos1_i386.deb pool/non-free/f/fglrx-driver/libfglrx_14.4.2-1+bsos1_amd64.deb pool/non-free/f/fglrx-driver/libfglrx_14.4.2-1+bsos1_i386.deb pool/non-free/f/fglrx-driver/libgl1-fglrx-glx_14.4.2-1+bsos1_amd64.deb pool/non-free/f/fglrx-driver/libgl1-fglrx-glx_14.4.2-1+bsos1_i386.deb pool/non-free/n/nvidia-graphics-drivers/libgl1-nvidia-glx_340.32-1+bsos1_amd64.deb pool/non-free/n/nvidia-graphics-drivers/libgl1-nvidia-glx_340.32-1+bsos1_i386.deb pool/non-free/n/nvidia-graphics-drivers/libnvidia-ml1_340.32-1+bsos1_amd64.deb pool/non-free/n/nvidia-graphics-drivers/libnvidia-ml1_340.32-1+bsos1_i386.deb pool/non-free/n/nvidia-graphics-drivers/nvidia-alternative_340.32-1+bsos1_amd64.deb pool/non-free/n/nvidia-graphics-drivers/nvidia-alternative_340.32-1+bsos1_i386.deb pool/non-free/n/nvidia-graphics-drivers/nvidia-driver_340.32-1+bsos1_amd64.deb pool/non-free/n/nvidia-graphics-drivers/nvidia-driver_340.32-1+bsos1_i386.deb pool/non-free/n/nvidia-graphics-drivers/nvidia-kernel-dkms_340.32-1+bsos1_amd64.deb pool/non-free/n/nvidia-graphics-drivers/nvidia-kernel-dkms_340.32-1+bsos1_i386.deb pool/non-free/n/nvidia-graphics-drivers/nvidia-vdpau-driver_340.32-1+bsos1_amd64.deb pool/non-free/n/nvidia-graphics-drivers/nvidia-vdpau-driver_340.32-1+bsos1_i386.deb pool/non-free/n/nvidia-graphics-drivers/xserver-xorg-video-nvidia_340.32-1+bsos1_amd64.deb pool/non-free/n/nvidia-graphics-drivers/xserver-xorg-video-nvidia_340.32-1+bsos1_i386.deb pool/main/e/elfutils/libelf1_0.159-3+bsos1_amd64.deb pool/main/e/elfutils/libelf1_0.159-3+bsos1_i386.deb pool/main/i/iceweasel/iceweasel_24.8.1esr-1~deb7u1+bsos1_amd64.deb pool/main/k/keyutils/libkeyutils1_1.5.5-3+bsos6_amd64.deb pool/main/libd/libdrm/libdrm2_2.4.56-1+bsos1_amd64.deb pool/main/libd/libdrm/libdrm2_2.4.56-1+bsos1_i386.deb pool/main/libd/libdrm/libdrm-intel1_2.4.56-1+bsos1_amd64.deb pool/main/libd/libdrm/libdrm-intel1_2.4.56-1+bsos1_i386.deb pool/main/libd/libdrm/libdrm-nouveau2_2.4.56-1+bsos1_amd64.deb pool/main/libd/libdrm/libdrm-nouveau2_2.4.56-1+bsos1_i386.deb pool/main/libd/libdrm/libdrm-radeon1_2.4.56-1+bsos1_amd64.deb pool/main/libd/libdrm/libdrm-radeon1_2.4.56-1+bsos1_i386.deb pool/main/libv/libvdpau/libvdpau1_0.7-2+bsos1_amd64.deb pool/main/libv/libvdpau/libvdpau1_0.7-2+bsos1_i386.deb pool/main/n/nss/libnss3_3.17.1-1+bsos1_amd64.deb pool/main/p/perl/perl_5.14.2-21+deb7u1+bsos6_amd64.deb pool/main/p/perl/perl-base_5.14.2-21+deb7u1+bsos6_amd64.deb pool/main/p/perl/perl-modules_5.14.2-21+deb7u1+bsos6_all.deb"
+	debstoremove="pool/main/l/lvm2/dmsetup_1.02.74-8+bsos7_amd64.deb"
+# pool/main/l/lvm2/libdevmapper1.02.1-udeb_1.02.74-8+bsos7_amd64.udeb pool/main/l/lvm2/dmsetup-udeb_1.02.74-8+bsos7_amd64.udeb pool/main/l/lvm2/libdevmapper-event1.02.1_1.02.74-8+bsos7_amd64.deb pool/main/l/lvm2/lvm2-udeb_2.02.95-8+bsos7_amd64.udeb pool/main/l/lvm2/libdevmapper1.02.1_1.02.74-8+bsos7_amd64.deb pool/main/l/lvm2/liblvm2app2.2_2.02.95-8+bsos7_amd64.deb pool/main/c/curl/libcurl3-gnutls_7.26.0-1+wheezy10+bsos1_amd64.deb pool/main/c/curl/libcurl3_7.26.0-1+wheezy10+bsos1_amd64.deb pool/main/c/curl/curl_7.26.0-1+wheezy10+bsos1_amd64.deb pool/main/b/base-files/base-files_7.1wheezy6+steamos1+bsos1_amd64.deb pool/main/l/linux/linux-headers-3.10-4-amd64_3.10.11-1+steamos29+bsos1_amd64.deb pool/main/l/linux/linux-image-3.10-4-amd64_3.10.11-1+steamos29+bsos1_amd64.deb pool/main/l/linux/linux-headers-3.10-4-common_3.10.11-1+steamos29+bsos1_amd64.deb pool/main/l/linux-latest/linux-headers-amd64_3.10+52+steamos1_amd64.deb pool/main/l/linux-latest/linux-image-amd64_3.10+52+steamos1_amd64.deb pool/main/d/debian-archive-keyring/debian-archive-keyring_2012.4+bsos6_all.deb pool/main/d/debian-archive-keyring/debian-archive-keyring-udeb_2012.4+bsos6_all.udeb pool/main/e/eglibc/libc6_2.17-97+steamos1+bsos1_amd64.deb pool/main/e/eglibc/libc6_2.17-97+steamos1+bsos1_i386.deb pool/main/e/eglibc/libc6-udeb_2.17-97+steamos1+bsos1_amd64.udeb pool/main/e/eglibc/libc-bin_2.17-97+steamos1+bsos1_amd64.deb pool/main/e/eglibc/libc-bin_2.17-97+steamos1+bsos1_i386.deb pool/main/e/eglibc/locales_2.17-97+steamos1+bsos1_all.deb pool/main/e/eglibc/multiarch-support_2.17-97+steamos1+bsos1_i386.deb pool/main/e/eglibc/multiarch-support_2.17-97+steamos1+bsos1_amd64.deb pool/main/f/file/file_5.11-2+deb7u5+bsos1_amd64.deb pool/main/f/file/libmagic1_5.11-2+deb7u5+bsos1_amd64.deb pool/main/f/firmware-free/firmware-linux-free_3.2+steamos8+bsos1_all.deb pool/main/c/ca-certificates/ca-certificates_20130119+bsos6_all.deb pool/main/f/flac/libflac8_1.2.1-6+bsos7_amd64.deb pool/main/libg/libgcrypt11/libgcrypt11_1.5.0-5+deb7u1+bsos6_amd64.deb pool/main/libg/libgcrypt11/libgcrypt11-udeb_1.5.0-5+deb7u1+bsos6_amd64.udeb pool/main/libt/libtasn1-3/libtasn1-3_2.13-2+bsos7_amd64.deb pool/main/t/tzdata/tzdata_2014e-0wheezy1+bsos1_all.deb pool/main/s/steamos-compositor/steamos-compositor_1.23+bsos1_amd64.deb pool/main/s/steamos-updatelevel/steamos-updatelevel_145_all.deb pool/main/u/unattended-upgrades/unattended-upgrades_0.82.9+steamos2+bsos1_all.deb pool/main/libg/libgcrypt11/libkeyutils1_1.5.5-3+deb7u1+bsos1_amd64.deb pool/non-free/f/fglrx-driver/fglrx-driver_14.4.2-1+bsos1_amd64.deb pool/non-free/f/fglrx-driver/fglrx-driver_14.4.2-1+bsos1_i386.deb pool/non-free/f/fglrx-driver/fglrx-modules-dkms_14.4.2-1+bsos1_amd64.deb pool/non-free/f/fglrx-driver/fglrx-modules-dkms_14.4.2-1+bsos1_i386.deb pool/non-free/f/fglrx-driver/libfglrx_14.4.2-1+bsos1_amd64.deb pool/non-free/f/fglrx-driver/libfglrx_14.4.2-1+bsos1_i386.deb pool/non-free/f/fglrx-driver/libgl1-fglrx-glx_14.4.2-1+bsos1_amd64.deb pool/non-free/f/fglrx-driver/libgl1-fglrx-glx_14.4.2-1+bsos1_i386.deb pool/non-free/n/nvidia-graphics-drivers/libgl1-nvidia-glx_340.32-1+bsos1_amd64.deb pool/non-free/n/nvidia-graphics-drivers/libgl1-nvidia-glx_340.32-1+bsos1_i386.deb pool/non-free/n/nvidia-graphics-drivers/libnvidia-ml1_340.32-1+bsos1_amd64.deb pool/non-free/n/nvidia-graphics-drivers/libnvidia-ml1_340.32-1+bsos1_i386.deb pool/non-free/n/nvidia-graphics-drivers/nvidia-alternative_340.32-1+bsos1_amd64.deb pool/non-free/n/nvidia-graphics-drivers/nvidia-alternative_340.32-1+bsos1_i386.deb pool/non-free/n/nvidia-graphics-drivers/nvidia-driver_340.32-1+bsos1_amd64.deb pool/non-free/n/nvidia-graphics-drivers/nvidia-driver_340.32-1+bsos1_i386.deb pool/non-free/n/nvidia-graphics-drivers/nvidia-kernel-dkms_340.32-1+bsos1_amd64.deb pool/non-free/n/nvidia-graphics-drivers/nvidia-kernel-dkms_340.32-1+bsos1_i386.deb pool/non-free/n/nvidia-graphics-drivers/nvidia-vdpau-driver_340.32-1+bsos1_amd64.deb pool/non-free/n/nvidia-graphics-drivers/nvidia-vdpau-driver_340.32-1+bsos1_i386.deb pool/non-free/n/nvidia-graphics-drivers/xserver-xorg-video-nvidia_340.32-1+bsos1_amd64.deb pool/non-free/n/nvidia-graphics-drivers/xserver-xorg-video-nvidia_340.32-1+bsos1_i386.deb pool/main/e/elfutils/libelf1_0.159-3+bsos1_amd64.deb pool/main/e/elfutils/libelf1_0.159-3+bsos1_i386.deb pool/main/i/iceweasel/iceweasel_24.8.1esr-1~deb7u1+bsos1_amd64.deb pool/main/k/keyutils/libkeyutils1_1.5.5-3+bsos6_amd64.deb pool/main/libd/libdrm/libdrm2_2.4.56-1+bsos1_amd64.deb pool/main/libd/libdrm/libdrm2_2.4.56-1+bsos1_i386.deb pool/main/libd/libdrm/libdrm-intel1_2.4.56-1+bsos1_amd64.deb pool/main/libd/libdrm/libdrm-intel1_2.4.56-1+bsos1_i386.deb pool/main/libd/libdrm/libdrm-nouveau2_2.4.56-1+bsos1_amd64.deb pool/main/libd/libdrm/libdrm-nouveau2_2.4.56-1+bsos1_i386.deb pool/main/libd/libdrm/libdrm-radeon1_2.4.56-1+bsos1_amd64.deb pool/main/libd/libdrm/libdrm-radeon1_2.4.56-1+bsos1_i386.deb pool/main/libv/libvdpau/libvdpau1_0.7-2+bsos1_amd64.deb pool/main/libv/libvdpau/libvdpau1_0.7-2+bsos1_i386.deb pool/main/n/nss/libnss3_3.17.1-1+bsos1_amd64.deb pool/main/p/perl/perl_5.14.2-21+deb7u1+bsos6_amd64.deb pool/main/p/perl/perl-base_5.14.2-21+deb7u1+bsos6_amd64.deb pool/main/p/perl/perl-modules_5.14.2-21+deb7u1+bsos6_all.deb"
 	for debremove in ${debstoremove}; do
 		if [ -f ${BUILD}/${debremove} ]; then
 			echo "Removing ${BUILD}/${debremove}..."
@@ -205,6 +206,56 @@ createbuildroot ( ) {
 		echo "Removing old ISO ${ISOPATH}/${ISONAME}"
 		rm -f "${ISOPATH}/${ISONAME}"
 	fi
+}
+
+checkduplicates ( ) {
+	echo ""
+	echo "Removing duplicate packages:"
+	echo ""
+	
+	# create a list with all packages
+	files=$(ls buildroot/pool/*/*/*/*|grep -v ":"|grep ".deb")
+	
+	# find package names which are listed twice
+	duplicates=$(echo $files|tr "\ " "\n"|cut -d"_" -f1|uniq -d)
+
+	for curdupname in ${duplicates}; do
+		curdupfiles=$(ls `echo "$files"|tr "\ " "\n"|grep "${curdupname}\_"|tr "\n" "\ "`)
+		
+		# seperate packages with different architectures
+		curdupamd64=$(echo $curdupfiles|tr "\ " "\n"|grep amd64)
+		curdupi386=$(echo $curdupfiles|tr "\ " "\n"|grep i386)
+		curdupall=$(echo $curdupfiles|tr "\ " "\n"|grep all)
+		
+		# check the amount of packages per architecture
+		nramd64=$(echo $curdupamd64|wc -w)
+		nri386=$(echo $curdupi386|wc -w)
+		nrall=$(echo $curdupall|wc -w)
+		
+		# remove the everything but the latest package, good thing ls sorts alphabethically
+		if [ ${nramd64} -gt 1 ]; then
+			toremove=$(echo $curdupamd64|cut -f1-$((nramd64-1)) -d" ")
+			echo "Removing: $toremove"
+			rm ${toremove}
+			tokeep=$(echo $curdupamd64|cut -f$((nramd64)) -d" ")
+			echo "Keeping: $tokeep"
+		fi
+		if [ ${nri386} -gt 1 ]; then
+			toremove=$(echo $curdupi386|cut -f1-$((nri386-1)) -d" ")
+			echo "Removing: $toremove"
+			rm ${toremove}
+			tokeep=$(echo $curdupi386|cut -f$((nri386)) -d" ")
+			echo "Keeping: $tokeep"
+		fi
+		if [ ${nrall} -gt 1 ]; then
+			toremove=$(echo $curdupall|cut -f1-$((nrall-1)) -d" ")
+			echo "Removing: $toremove"
+			rm ${toremove}
+			tokeep=$(echo $curdupall|cut -f$((nrall)) -d" ")
+			echo "Keeping: $tokeep"
+		fi
+
+	done
 }
 
 createiso ( ) {
@@ -268,6 +319,8 @@ extract
 
 #Build the buildroot for Rocket installer
 createbuildroot
+
+checkduplicates
 
 #Build the iso for Rocket installer
 createiso
