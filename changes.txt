@@ -13,6 +13,7 @@ nautilus-open-terminal
 openssh-server
 p7zip-full
 pastebinit
+steamos-beta-repo
 unzip
 
 Packages added from SteamOS repo:
@@ -37,6 +38,7 @@ python-debian_0.1.21+bsos5_all.deb
 rsync_3.0.9-4+bsos5_amd64.deb
 unzip_6.0-8+bsos5_amd64.deb
 gir1.2-vte-2.90_0.32.2-1+bsos7_amd64.deb
+steamos-beta-repo_1.1+bsos1_all.deb
 
 Applications added from the Debian repo:
 anacron
