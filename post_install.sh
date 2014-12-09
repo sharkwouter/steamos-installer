@@ -99,7 +99,7 @@ EOF
 #
 # Run aticonfig if an AMD card is present
 #
-chroot /target if [ ! -n "$(lspci|grep VGA|grep AMD)" ]; then aticonfig --initial; fi
+chroot /target if [ ! -n "$(lspci|grep VGA|grep -i 'AMD\|ATI')" ]; then aticonfig --initial; fi
 
 #
 # Add fstrim-all script from Ubuntu 14.04
