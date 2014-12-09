@@ -97,6 +97,11 @@ Name=postlogon
 EOF
 
 #
+# Run aticonfig if an AMD card is present
+#
+chroot /target if [ ! -n "$(lspci|grep VGA|grep AMD)" ]; then aticonfig --initial; fi
+
+#
 # Add fstrim-all script from Ubuntu 14.04
 #
 cat - > /target/sbin/fstrim-all << 'EOF'
