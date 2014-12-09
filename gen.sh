@@ -241,6 +241,7 @@ createiso ( ) {
 	fi
 
 	#Generate our new repos
+	echo ""
 	echo "Generating Packages.."
 	apt-ftparchive generate ${APTCONF}
 	apt-ftparchive generate ${APTUDEBCONF}
