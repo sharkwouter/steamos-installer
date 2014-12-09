@@ -64,7 +64,3 @@ disable mouse acceleration by adding the file /etc/X11/xorg.conf.d/50-mouse-acce
 added notification to set password when opening desktop
 added firewall configuration shortcut on desktop's desktop
 added maximize and minimize buttons to gnome
-
-Things which I might add:
-xorriso, from debian jessie(might have to manually backport)
-more up-to-date ufw/gufw for better ipv6 support, required python 3 from jessie
