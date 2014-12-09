@@ -45,8 +45,6 @@ anacron
 gnome-tweak-tool
 gksu
 gufw
-hwinfo
-v86d
 ufw
 
 Packages added from the Debian repo:
