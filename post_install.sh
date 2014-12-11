@@ -99,7 +99,11 @@ EOF
 #
 # Run aticonfig if an AMD card is present
 #
-chroot /target if [ ! -n "$(lspci|grep VGA|grep AMD)" ]; then aticonfig --initial; fi
+if [ ! -n "$(lspci|grep VGA|grep -i 'AMD\|ATI')" ]; then
+	if [ -n "$(lspci|grep VGA|grep NVIDIA)" ]; then
+		chroot /target update-alternatives --set glx /usr/lib/mesa-diverted
+	fi
+fi
 
 #
 # Add fstrim-all script from Ubuntu 14.04
