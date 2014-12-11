@@ -101,7 +101,7 @@ EOF
 #
 if [ ! -n "$(lspci|grep VGA|grep -i 'AMD\|ATI')" ]; then
 	if [ -n "$(lspci|grep VGA|grep NVIDIA)" ]; then
-		chroot /target update-alternatives --set glx /usr/lib/mesa-diverted
+		chroot /target update-alternatives --set glx /usr/lib/fglrx
 	fi
 fi
 
