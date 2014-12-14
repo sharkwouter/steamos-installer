@@ -55,7 +55,7 @@ gnome-tweak-tool_3.4.0.1-2_all.deb
 gufw_12.10.0-1_all.deb
 ufw_0.31.1-2_all.deb
 
-Configuration changes:
+Configuration changes(found mostly in post_install.sh, some in default.preseed):
 configured the ufw firewall, it only allows ssh and in home streaming inbound, but doesn't block anything outbound
 configured openssh-server to not allow root login
 /home mounts with the noatime option
@@ -64,3 +64,4 @@ disable mouse acceleration by adding the file /etc/X11/xorg.conf.d/50-mouse-acce
 added notification to set password when opening desktop
 added firewall configuration shortcut on desktop's desktop
 added maximize and minimize buttons to gnome
+AMD users no longer get a black screen on first boot

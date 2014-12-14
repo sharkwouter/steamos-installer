@@ -4,7 +4,7 @@
  
 # Improvements
 
-- The current SteamOS iso installs SteamOS patch 145, VaporOS installs SteamOS patch 147.
+- The current SteamOS iso installs SteamOS patch 145, VaporOS installs SteamOS patch 148.
 - VaporOS has a firewall installed by default, which can be easily configured from the desktop.
 - VaporOS asks you to set a password for the desktop user when you open the desktop for the first time.
 - VaporOS has trim support.
@@ -12,6 +12,7 @@
 - VaporOS has an ssh server installed by default.
 - VaporOS installs many tools to improve the command line experience. This includes bash completion, iotop, htop, mesa-utils, pastebinit, git and lsof. 
 - VaporOS has no mouse acceleration.
+- VaporOS will not freeze on First boot for AMD graphics cards users, SteamOS still has this issue.
 
 For a more detailed list of added package, take a look at the file changes.txt.
 
@@ -55,20 +56,20 @@ Download [Win32 Disk Imager](http://sourceforge.net/projects/win32diskimager/) a
 
 Pick the "Automatic Install" option to wipe the first hard disk in your system and install SteamOS to it.
 
-For more sophisticated booting - e.g. dual-boot or custom partition sizes - select the "Expert" option. Use of this mode is documented in the support video [here](YT).
+For more sophisticated booting - e.g. dual-boot or custom partition sizes - select the "Expert" option. Use of this mode is documented in the support video [here](https://www.youtube.com/watch?v=qPs46BoUWrA).
 
 Beyond that, just follow Valve's instructions from [their site](http://store.steampowered.com/steamos/buildyourown) - Stephenson's Rocket should behave exactly like the real SteamOS, except it works on more systems
 
 # Known issues and workarounds
 
 - Running in Virtualbox is not supported.
-- Some games, like Dota 2, currently don't launch. This is not specific to VaporOS.
-- On some Nvidia systems, sound over hdmi doesn't work. This is not specific to VaporOS. A fix can be found here: http://steamcommunity.com/groups/steamuniverse/discussions/1/35221584678322281/#c35222218678959581
+- On some systems with AMD gpu's you'll have underscan. This is not specific to VaporOS. A fix can be found [here](http://steamcommunity.com/groups/steamuniverse/discussions/1/616187839533548192/#c626329186869925659).
+- On some Nvidia systems, sound over hdmi doesn't work. This is not specific to VaporOS. A fix can be found [here](http://steamcommunity.com/groups/steamuniverse/discussions/1/35221584678322281/#c35222218678959581).
 
 # Special Thanks
 
 - All contributors to Stephenson's Rocket, Directhex in particular.
 - [40-1]PvtBalderick, for help with ideas and testing.
-- Dubigrasu, for help with ideas and testing.
+- Dubigrasu, for help with development,testing and ideas.
 - Nate Wardawg, for the name.
 - Valve for creating SteamOS in the first place.
