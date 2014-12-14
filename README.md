@@ -12,7 +12,7 @@
 - VaporOS has an ssh server installed by default.
 - VaporOS installs many tools to improve the command line experience. This includes bash completion, iotop, htop, mesa-utils, pastebinit, git and lsof. 
 - VaporOS has no mouse acceleration.
-- VaporOS will not freeze on First boot for AMD graphics cards users, SteamOS still has this issue.
+- VaporOS will not freeze on first boot for AMD graphics cards users, SteamOS still has this issue.
 
 For a more detailed list of added package, take a look at the file changes.txt.
 
