@@ -6,8 +6,8 @@ APTUDEBCONF="./ftparchive/apt-ftparchive-udeb.conf"
 DISTNAME="alchemist"
 CACHEDIR="./cache"
 ISOPATH="."
-ISONAME="vaporos-beta7.iso"
-ISOVNAME="VaporOS-beta7"
+ISONAME="vaporos1.iso"
+ISOVNAME="VaporOS1.0"
 UPSTREAMURL="http://repo.steampowered.com"
 STEAMINSTALLFILE="SteamOSDVD.iso"
 MD5SUMFILE="MD5SUMS"
@@ -148,7 +148,7 @@ createbuildroot ( ) {
 
 	#Copy over updated and added debs
 	#First remove uneeded debs
-	debstoremove="pool/main/l/lvm2/dmsetup_1.02.74-8+bsos7_amd64.deb pool/main/l/lvm2/libdevmapper1.02.1-udeb_1.02.74-8+bsos7_amd64.udeb pool/main/l/lvm2/dmsetup-udeb_1.02.74-8+bsos7_amd64.udeb pool/main/l/lvm2/libdevmapper-event1.02.1_1.02.74-8+bsos7_amd64.deb pool/main/l/lvm2/lvm2-udeb_2.02.95-8+bsos7_amd64.udeb pool/main/l/lvm2/libdevmapper1.02.1_1.02.74-8+bsos7_amd64.deb pool/main/l/lvm2/liblvm2app2.2_2.02.95-8+bsos7_amd64.deb pool/main/d/debian-archive-keyring/debian-archive-keyring-udeb_2012.4+bsos6_all.udeb pool/main/e/eglibc/libc6-udeb_2.17-97+steamos1+bsos1_amd64.udeb pool/main/libg/libgcrypt11/libgcrypt11-udeb_1.5.0-5+deb7u1+bsos6_amd64.udeb"
+	debstoremove="pool/main/l/lvm2/dmsetup_1.02.74-8+bsos7_amd64.deb pool/main/l/lvm2/libdevmapper1.02.1-udeb_1.02.74-8+bsos7_amd64.udeb pool/main/l/lvm2/dmsetup-udeb_1.02.74-8+bsos7_amd64.udeb pool/main/l/lvm2/libdevmapper-event1.02.1_1.02.74-8+bsos7_amd64.deb pool/main/l/lvm2/lvm2-udeb_2.02.95-8+bsos7_amd64.udeb pool/main/l/lvm2/libdevmapper1.02.1_1.02.74-8+bsos7_amd64.deb pool/main/l/lvm2/liblvm2app2.2_2.02.95-8+bsos7_amd64.deb pool/main/d/debian-archive-keyring/debian-archive-keyring-udeb_2012.4+bsos6_all.udeb pool/main/e/eglibc/libc6-udeb_2.17-97+steamos1+bsos1_amd64.udeb pool/main/libg/libgcrypt11/libgcrypt11-udeb_1.5.0-5+deb7u1+bsos6_amd64.udeb pool/main/l/linux/linux-headers-3.10-4-amd64_3.10.11-1+steamos29+bsos1_amd64.deb pool/main/l/linux/linux-headers-3.10-4-common_3.10.11-1+steamos29+bsos1_amd64.deb pool/main/l/linux/linux-image-3.10-4-amd64_3.10.11-1+steamos29+bsos1_amd64.deb"
 	for debremove in ${debstoremove}; do
 		if [ -f ${BUILD}/${debremove} ]; then
 			echo "Removing ${BUILD}/${debremove}..."
