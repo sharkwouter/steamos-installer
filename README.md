@@ -72,4 +72,5 @@ Beyond that, just follow Valve's instructions from [their site](http://store.ste
 - [40-1]PvtBalderick, for help with ideas and testing.
 - Dubigrasu, for help with development,testing and ideas.
 - Nate Wardawg, for the name.
+- Jorgën Såagrid, for allowing the continued use of the name VaporOS.
 - Valve for creating SteamOS in the first place.
