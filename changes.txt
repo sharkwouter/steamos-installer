@@ -96,3 +96,4 @@ added notification to set password when opening desktop
 added firewall configuration shortcut on desktop's desktop
 added maximize and minimize buttons to gnome
 AMD users no longer get a black screen on first boot
+added XBMC repo and repo key
