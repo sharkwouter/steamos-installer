@@ -64,6 +64,9 @@ ufw allow 27031/udp
 # Disallow root login on ssh
 sed -i "s/PermitRootLogin\ yes/PermitRootLogin\ no/" /etc/ssh/sshd_config
 
+# Add the xbmc repo key
+wget -O - http://mirrors.xbmc.org/apt/steamos/steam@xbmc.org.gpg.key | sudo apt-key add -
+
 /usr/lib/x86_64-linux-gnu/lightdm/lightdm-set-defaults -a steam -s steamos
 dbus-send --system --type=method_call --print-reply --dest=org.freedesktop.Accounts /org/freedesktop/Accounts/User1000 org.freedesktop.Accounts.User.SetXSession string:gnome
 dbus-send --system --type=method_call --print-reply --dest=org.freedesktop.Accounts /org/freedesktop/Accounts/User1001 org.freedesktop.Accounts.User.SetXSession string:steamos
@@ -163,6 +166,13 @@ rm ~/set-passwd.sh
 EOF
 chmod +x /target/home/desktop/set-passwd.sh
 chroot /target chown desktop:desktop /home/desktop/set-passwd.sh
+
+#
+# Add the XBMC repo
+#
+cat - > /target/etc/apt/sources.list.d/xbmc.list << 'EOF'
+deb http://mirrors.xbmc.org/apt/steamos alchemist main
+EOF
 
 #
 # Boot splash screen and GRUB configuration
