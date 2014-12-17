@@ -11,6 +11,7 @@
 - VaporOS offers a better out of the box desktop experience. Things like a text editor, an archive manager and Gnome Tweak Tools are installed by default.
 - VaporOS has an ssh server installed by default.
 - VaporOS installs many tools to improve the command line experience. This includes bash completion, iotop, htop, mesa-utils, pastebinit, git and lsof. 
+- VaporOS has XBMC installed by default.
 - VaporOS has no mouse acceleration.
 - VaporOS will not freeze on first boot for AMD graphics cards users, SteamOS still has this issue.
 

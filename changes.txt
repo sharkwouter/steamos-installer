@@ -55,6 +55,37 @@ gnome-tweak-tool_3.4.0.1-2_all.deb
 gufw_12.10.0-1_all.deb
 ufw_0.31.1-2_all.deb
 
+Applications added from the XBMC repo:
+XBMC
+
+Packages added from the XBMC repo:
+pool/main/e/enca/
+pool/main/f/fonts-liberation/
+pool/main/f/fribidi/
+pool/main/g/glew/
+pool/main/j/
+pool/main/l/lame/
+pool/main/l/lockdev/
+pool/main/l/lzo2/
+pool/main/liba/
+pool/main/libb/
+pool/main/libc/
+pool/main/libm/
+pool/main/libn/
+pool/main/libs/
+pool/main/libv/libva/
+pool/main/m/mysql-5.5/
+pool/main/n/netcat-openbsd/
+pool/main/p/pcre3/
+pool/main/p/pybluez/
+pool/main/p/python-imaging/
+pool/main/s/shairplay/
+pool/main/s/simplejson/
+pool/main/t/taglib/
+pool/main/t/tinyxml/
+pool/main/x/
+pool/main/y/
+
 Configuration changes(found mostly in post_install.sh, some in default.preseed):
 configured the ufw firewall, it only allows ssh and in home streaming inbound, but doesn't block anything outbound
 configured openssh-server to not allow root login
