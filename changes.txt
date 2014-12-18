@@ -86,6 +86,9 @@ pool/main/t/tinyxml/
 pool/main/x/
 pool/main/y/
 
+VaporOS specific packages:
+trim-support_1.0_all.deb (offers trim support for select drives)
+
 Configuration changes(found mostly in post_install.sh, some in default.preseed):
 configured the ufw firewall, it only allows ssh and in home streaming inbound, but doesn't block anything outbound
 configured openssh-server to not allow root login
