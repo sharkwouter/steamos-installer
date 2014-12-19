@@ -38,7 +38,7 @@ usage ( ) {
 
 # Download all the package list files in the list distfiles
 download ( ) {
-	if [[ $update -eq 1 ]] || [ ! -d ${pkgdir} ]; then
+	if [[ $update -eq 1 ]] || [ ! -d ${distdir} ]; then
 		mkdir -p ${distdir}
 		distnumber=1
 		for pkglist in ${distfiles};do
