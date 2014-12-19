@@ -66,7 +66,7 @@ move ( ) {
 			# When no potential location has been found
 			echo "Couldn't find ${package} in any of the repos"
 		fi
-		if [[ $newpkgs ]] && [[ -z ${location} ]]; then
+		if [[ $newpkgs -eq 1 ]] && [[ -z ${location} ]]; then
 			# Force new location if not set and the -n flag has been used
 			if [[ "$(echo ${package}|cut -c-3)" == "lib" ]]; then
 				ldir1=$(echo ${package}|cut -c-4)
