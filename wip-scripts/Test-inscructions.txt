@@ -1,4 +1,4 @@
-Right now these scripts can be tested by moving files into the following directories:
+Right now these scripts can be tested in VaporOS 1.2 (Not yet released) by moving files into the following directories:
 
 /etc/
         actkbd-steamos-controller.conf
@@ -11,6 +11,10 @@ Right now these scripts can be tested by moving files into the following directo
         steamos-recording.sh
         steamos-restart.sh
         steamos-screenshot.sh
-        
+       
+Afterwards, run this:
+        sudo chmod +x /usr/local/bin/*.sh
+
+
 After you've done that, reboot and you'll be able to use button combinations on your Xbox 360 controller to do various things. 
 Take a look at actkbd-steamos-controller.conf for more details.
