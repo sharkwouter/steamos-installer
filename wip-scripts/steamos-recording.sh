@@ -2,7 +2,7 @@
 #set -x
 
 #set variables
-RECORDER="ffmpeg"
+RECORDER="avconv"
 DIR=~/Videos
 LOG=/tmp/dumps/${RECORDER}-recording.log
 FRAMERATE=30
@@ -36,7 +36,7 @@ done
 NAME=$STARTNAME$NUMBER
 
 ## start the recording
-avconv -f pulse -i default /tmp/pulse.wav -f x11grab -r ${FRAMERATE} -s ${RES} -i ${DISPLAY} -acodec pcm_s16le -vcodec libx264 -preset ultrafast -crf 0 -threads 0 $DIR/$NAME.mkv
+${RECORDER} -f pulse -i default /tmp/pulse.wav -f x11grab -r ${FRAMERATE} -s ${RES} -i ${DISPLAY} -acodec pcm_s16le -vcodec libx264 -preset ultrafast -crf 0 -threads 0 $DIR/$NAME.mkv
 
 # In case the recording does finish/crash
 rm /tmp/pulse.wav
