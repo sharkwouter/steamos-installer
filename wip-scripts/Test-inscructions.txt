@@ -1,0 +1,16 @@
+Right now these scripts can be tested by moving files into the following directories:
+
+/etc/
+        actkbd-steamos-controller.conf
+
+/etc/udev/rules.d/
+        99-actkbd-controller.rules
+
+/usr/local/bin/
+        steamos-displayfps.sh
+        steamos-recording.sh
+        steamos-restart.sh
+        steamos-screenshot.sh
+        
+After you've done that, reboot and you'll be able to use button combinations on your Xbox 360 controller to do various things. 
+Take a look at actkbd-steamos-controller.conf for more details.
