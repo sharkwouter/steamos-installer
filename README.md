@@ -25,7 +25,7 @@ For a more detailed list of added package, take a look at the file changes.txt.
 
 ISO's for the latest releases are always available on http://trashcan-gaming.nl/
 
-Otherwise, clone this repo, and run `./gen.sh`.
+Otherwise, clone this repo, and run `./gen.sh`. This will only work on Ubuntu. If you're a Debian Jessie user, you can make this work by install the packages [syslinux](http://packages.ubuntu.com/utopic/syslinux) and [syslinux-common](http://packages.ubuntu.com/utopic/syslinux-common) from Ubuntu.
 
 ## Installing from a DVD
 
