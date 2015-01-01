@@ -1,2 +1,2 @@
 #!/bin/bash
-killall steam
+pkill steam
