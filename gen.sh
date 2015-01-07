@@ -66,9 +66,12 @@ obsoletereport ( ) {
 	if [ ! -d ${REPODIR} ]; then
 		echo "No ${REPODIR} directory exists, run archive-mirror.sh if you want this script to report obsolete packages"
 	else
-		echo "Reporting on packages which are different in ${BUILD} than ${REPODIR}"
+		echo "Reporting on packages which are older in ${BUILD} than ${REPODIR}"
 		echo "\nPackagename\t\ttype\tarch\told version\tnew version\n"
 		REPODIR="`realpath ${REPODIR}`"
+		NEWPKGSDIR="newpkgs"
+		mkdir -p ${NEWPKGSDIR}
+		NEWPKGSDIR="`realpath ${NEWPKGSDIR}`"
 		cd ${BUILD}/pool/
 		for i in */*/*/*.*deb
 			do PKGNAME=`basename $i | cut -f1 -d'_'`
@@ -76,13 +79,17 @@ obsoletereport ( ) {
 			PKGPATH=`dirname $i`;PKGVER=`basename $i | cut -f2 -d'_'`
 			DEBTYPE=`basename $i | sed 's/.*\.//g'`
 			if [ `ls -1 ${REPODIR}/pool/${PKGPATH}/${PKGNAME}_*_${ARCHNAME}.${DEBTYPE} 2> /dev/null | wc -l` -gt 0 ]
-				then NEWPKGVER=$(basename `ls -1 ${REPODIR}/pool/${PKGPATH}/${PKGNAME}_*_${ARCHNAME}.${DEBTYPE} | sort -n | tail -1` | cut -f2 -d'_')
-				if [ "x${PKGVER}" != "x${NEWPKGVER}" ]
+				then NEWPKGVER=$(basename `ls -1 ${REPODIR}/pool/${PKGPATH}/${PKGNAME}_*_${ARCHNAME}.${DEBTYPE} | sort -V | tail -1` | cut -f2 -d'_')
+				NEWESTPKG=$(bash -c "echo -e '${PKGVER}\n${NEWPKGVER}'"|sort -V|tail -1)
+				if [ "x${NEWPKGVER}" = "x${NEWESTPKG}" ] && [ "x${PKGVER}" != "x${NEWESTPKG}" ]
 					then echo "${PKGNAME}\t\t${DEBTYPE}\t${ARCHNAME}\t${PKGVER}\t${NEWPKGVER}"
+					cp ${REPODIR}/pool/${PKGPATH}/${PKGNAME}_${NEWPKGVER}_${ARCHNAME}.${DEBTYPE} ${NEWPKGSDIR}/
 				fi
 			fi
 		done
 		cd -
+		echo "Newer packages have been copied to ${NEWPKGSDIR}"
+		echo "To add the packages to the pool run: ./addtopool.sh ${NEWPKGSDIR}"
 	fi
 }
 #Extract the upstream SteamOSDVD.iso from repo.steampowered.com
