@@ -81,6 +81,7 @@ move ( ) {
 		if [[ ${location} ]]; then
 			# Make the directory and move the file it it
 			mkdir -p ${location}
+			echo "Moving ${package} to ${location}"
 			mv ${pkgdir}/${package} ${location}
 		fi
 done

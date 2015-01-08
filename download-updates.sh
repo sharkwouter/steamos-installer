@@ -52,10 +52,10 @@ for area in ${repoareas}; do
 			if [[ "x${pkg}" == "x${newestpkg}" ]]; then
 				echo "buildroot: ${oldpkg}"
 				echo "repo: ${pkg}"
-				echo " "
 				
 				downloaded="${downloaded} ${pkg}"
                         	wget -nc -nv -P ${downloaddir} ${repourl}/${pkg}
+                        	echo " "
                         else
                         	skipped="${skipped} ${pkg}"
                         fi
