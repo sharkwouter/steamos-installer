@@ -5,6 +5,8 @@
 # Example: ./download-updates.sh deb http://repo.steampowered.com/steamos alchemist_beta main contrib non-free
 # Packages will be downloaded to the newpkgs directory.
 
+# DISCLAIMER: RIGHT NOW THIS SCRIPT ASSUMES THAT THE PACKAGES IN THE REPO ARE ALWAYS NEWER!!
+
 if [[ -z $@ ]]; then
 	repo="deb http://repo.steampowered.com/steamos alchemist_beta main contrib non-free"
 else
