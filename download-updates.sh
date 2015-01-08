@@ -13,6 +13,7 @@ else
 	repo="$@"
 fi
 
+# set variables
 architectures="amd64 i386"
 downloaddir="newpkgs"
 
@@ -21,35 +22,33 @@ if [[ -f Packages.gz ]]; then
 	rm Packages.gz
 fi
 
-# do the thing for each entry in sources
-#for repo in ${sources};do
-        # get required info from repo string
-        repourl=$(echo $repo|cut -d" " -f2)
-        reponame=$(echo $repo|cut -d" " -f3)
-        repoareas=$(echo $repo|cut -d" " -f4-)
+# get required info from repo string
+repourl=$(echo $repo|cut -d" " -f2)
+reponame=$(echo $repo|cut -d" " -f3)
+repoareas=$(echo $repo|cut -d" " -f4-)
         
-        # check each part of the rpeo
-        for area in ${repoareas}; do
-                for arch in ${architectures}; do
-                        wget ${repourl}/dists/${reponame}/${area}/binary-${arch}/Packages.gz
-                        gunzip -c buildroot/dists/alchemist/${area}/binary-${arch}/Packages.gz|grep Filename|cut -d" " -f2|sort > buildroot.txt
-                        gunzip -c Packages.gz|grep Filename|cut -d" " -f2|sort > repo.txt
+# check each part of the rpeo
+for area in ${repoareas}; do
+	for arch in ${architectures}; do
+		wget ${repourl}/dists/${reponame}/${area}/binary-${arch}/Packages.gz
+		gunzip -c buildroot/dists/alchemist/${area}/binary-${arch}/Packages.gz|grep Filename|cut -d" " -f2|sort > buildroot.txt
+		gunzip -c Packages.gz|grep Filename|cut -d" " -f2|sort > repo.txt
                         
-                        # create a list of packages which have different versions in the repo than the ones in buildroot
-                        diffpkgs=$(grep -F "`cat buildroot.txt|cut -d'_' -f1|sed 's/$/_/'`" repo.txt|grep -Fvxf "buildroot.txt")
-                        echo $diffpkgs
-                        echo "$(echo $diffpkgs|wc -w)"
+		# create a list of packages which have different versions in the repo than the ones in buildroot
+		diffpkgs=$(grep -F "`cat buildroot.txt|cut -d'_' -f1|sed 's/$/_/'`" repo.txt|grep -Fvxf "buildroot.txt")
+		echo $diffpkgs
+		echo "$(echo $diffpkgs|wc -w)"
                         
-                        # download all the new packages
-                        for pkg in ${diffpkgs}; do
-                        	mkdir -p ${downloaddir}
-                        	wget -nc -P ${downloaddir} ${repourl}/${pkg}
-                        done
+		# download all the new packages
+		for pkg in ${diffpkgs}; do
+			mkdir -p ${downloaddir}
+                        wget -nc -P ${downloaddir} ${repourl}/${pkg}
+		done
                         
-                        # clean up
-                        rm buildroot.txt
-                        rm repo.txt
-                        rm Packages.gz
-                done
-        done
-#done
+		# clean up
+		rm buildroot.txt
+		rm repo.txt
+		rm Packages.gz
+	done
+done
+
