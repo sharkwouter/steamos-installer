@@ -69,7 +69,7 @@ obsoletereport ( ) {
 		echo "Reporting on packages which are older in ${BUILD} than ${REPODIR}"
 		echo "\nPackagename\t\ttype\tarch\told version\tnew version\n"
 		REPODIR="`realpath ${REPODIR}`"
-		NEWPKGSDIR="newpkgs"
+		NEWPKGSDIR="updates"
 		mkdir -p ${NEWPKGSDIR}
 		NEWPKGSDIR="`realpath ${NEWPKGSDIR}`"
 		cd ${BUILD}/pool/
