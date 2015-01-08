@@ -49,9 +49,11 @@ for area in ${repoareas}; do
 			pkgname=$(echo "${pkg}"|cut -d"_" -f1)
 			oldpkg=$(grep "${pkgname}" buildroot.txt)
 			newestpkg=$(echo -e "${pkg}\n${oldpkg}"|sort -V|tail -1)
-			echo "pkg: ${pkg}"
-			echo "newest: ${newestpkg}"
 			if [[ "x${pkg}" == "x${newestpkg}" ]]; then
+				echo "buildroot: ${oldpkg}"
+				echo "repo: ${pkg}"
+				echo " "
+				
 				downloaded="${downloaded} ${pkg}"
                         	wget -nc -nv -P ${downloaddir} ${repourl}/${pkg}
                         else
@@ -71,14 +73,18 @@ downloadednr=$(echo "${downloaded}"|wc -w)
 skippednr=$(echo "${skipped}"|wc -w)
 
 # output result
-echo "${downloadednr} package have been downloaded"
-echo "${skippednr} packages have been skipped"
+
 if [[ ${downloadnr} -eq 0 ]] && [[ ${skippednr} -eq 0 ]]; then
-	echo "Your buildroot is up-to-date"
+	echo " "
+	echo "Your buildroot was up-to-date already"
 else
 	echo "Downloaded packages: ${downloaded}"
+	echo " "
 	echo "Skipped packages: ${skipped}"
-
-	echo "The updated packages have been moved to ${downloaddir}"
-	echo "To add them to the pool run: ./addtopool.sh ${downloaddir}"
+	echo " "
+	echo "${downloadednr} package have been downloaded"
+	echo "${skippednr} packages have been skipped"
+	echo " "
+	echo "The updated packages have been moved to ${downloaddir}. To add them to the pool run: ./addtopool.sh ${downloaddir}"
+	echo "Skipped packages can be downloaded at ${repourl} if needed."
 fi
