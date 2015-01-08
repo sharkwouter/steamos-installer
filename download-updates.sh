@@ -35,7 +35,7 @@ mkdir -p ${downloaddir}
 for area in ${repoareas}; do
 	for arch in ${architectures}; do
 		# download repo packagelist
-		wget ${repourl}/dists/${reponame}/${area}/binary-${arch}/Packages.gz
+		wget -q ${repourl}/dists/${reponame}/${area}/binary-${arch}/Packages.gz
 		
 		# copy the filename strings from the Package.gz from both the local buildroot and the repo into textfiles
 		gunzip -c buildroot/dists/alchemist/${area}/binary-${arch}/Packages.gz|grep Filename|cut -d" " -f2|sort > buildroot.txt
@@ -49,7 +49,9 @@ for area in ${repoareas}; do
 			pkgname=$(echo "${pkg}"|cut -d"_" -f1)
 			oldpkg=$(grep "${pkgname}" buildroot.txt)
 			newestpkg=$(echo -e "${pkg}\n${oldpkg}"|sort -V|tail -1)
-			if [[ "x${pkg}" == "x${newest}" ]]; then
+			echo "pkg: ${pkg}"
+			echo "newest: ${newestpkg}"
+			if [[ "x${pkg}" == "x${newestpkg}" ]]; then
 				downloaded="${downloaded} ${pkg}"
                         	wget -nc -nv -P ${downloaddir} ${repourl}/${pkg}
                         else
@@ -74,6 +76,9 @@ echo "${skippednr} packages have been skipped"
 if [[ ${downloadnr} -eq 0 ]] && [[ ${skippednr} -eq 0 ]]; then
 	echo "Your buildroot is up-to-date"
 else
+	echo "Downloaded packages: ${downloaded}"
+	echo "Skipped packages: ${skipped}"
+
 	echo "The updated packages have been moved to ${downloaddir}"
 	echo "To add them to the pool run: ./addtopool.sh ${downloaddir}"
 fi
