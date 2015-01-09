@@ -55,10 +55,9 @@ while read repo; do
         		for pkg in ${diffpkgs}; do
         			pkgname=$(echo "${pkg}"|cut -d"_" -f1)
         			oldpkg=$(grep "${pkgname}" buildroot.txt)
-        			downloadedpkg=$(ls ${downloaddir}|grep "`echo ${pkgname}|rev|cut -d"/" -f1|rev`"|grep "_${arch}.")
         			newestpkg=$(echo -e "${pkg}\n${oldpkg}"|sort -V|tail -1)
         			if [[ ! -z ${oldpkg} ]] && [[ "x${pkg}" == "x${newestpkg}" ]]; then
-        			        if [[ -z "${downloadedpkg}" ]] || [[ -z $(echo ${pkg}|grep "${downloadedpkg}") ]]; then
+        			        if [[ -z $(echo "${downloaded}"|grep ${pkg}) ]]; then
         				        echo "buildroot: ${oldpkg}"
         				        echo "repo: ${pkg}"
         				
