@@ -64,6 +64,8 @@ for area in ${repoareas}; do
                         	echo " "
                         else
                         	skipped="${skipped} ${pkg}"
+                        	echo "Skipped, newer version in buildroot."
+                        	echo " "
                         fi
 		done
                  
