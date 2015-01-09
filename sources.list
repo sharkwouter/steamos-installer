@@ -1,0 +1,2 @@
+deb http://repo.steampowered.com/steamos alchemist main contrib non-free main/debian-installer
+deb http://repo.steampowered.com/steamos alchemist_beta main contrib non-free main/debian-installer
