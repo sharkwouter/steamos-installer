@@ -9,7 +9,7 @@
 
 # read cmdline input
 if [[ -z $@ ]]; then
-	repo="deb http://repo.steampowered.com/steamos alchemist_beta main contrib non-free"
+	repo="deb http://repo.steampowered.com/steamos alchemist_beta main contrib non-free main/debian-installer"
 else
 	repo="$@"
 fi
