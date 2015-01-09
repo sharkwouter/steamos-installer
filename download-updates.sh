@@ -1,14 +1,9 @@
 #!/bin/bash
 
 # This script is used for downloading package updates.
-# By default, it will check the alchemist_beta repo from Valve, but it can be used for different repos.
-# Example: ./download-updates.sh deb http://repo.steampowered.com/steamos alchemist_beta main contrib non-free
-# Packages will be downloaded to the updates directory.
-
-# delete old Packages.gz file
-if [[ -f Packages.gz ]]; then
-	rm Packages.gz
-fi
+# The configuration file with repos is called sources.list, which works in almost the same way as the sources.list file in debian.
+# Adding main/debian-installer to a line with a repo will make it look for installer updates as well.
+# Packages are downloaded to the updates directory.
 
 # set variables
 architectures="amd64 i386 all"
@@ -38,7 +33,6 @@ while read repo; do
         		packagelist="${repourl}/dists/${reponame}/${area}/binary-${arch}/Packages.gz"
         		wget -q -x  -P ${distsdir} "${packagelist}"
         		if [[ ! $? -eq 0 ]]; then
-        		        echo " "
         		        echo "Couldn't download ${packagelist}"
         		        echo " "
         		        break
@@ -66,7 +60,9 @@ while read repo; do
                                 	        echo " "
                                 	fi
                                 else
-                                	skipped="${skipped} ${pkg}"
+                                        if [[ -z $(echo "${skipped}"|grep ${pkg}) ]];then
+                                	        skipped="${skipped} ${pkg}"
+                                	fi
                                 fi
         		done
                          
