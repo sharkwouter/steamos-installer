@@ -5,7 +5,9 @@
 
 # Set variables
 distdir="package-list"
-distfiles="http://repo.steampowered.com/steamos/dists/alchemist/main/binary-i386/Packages.gz \
+distfiles="http://repo.steampowered.com/steamos/dists/alchemist/main/debian-installer/binary-i386/Packages.gz \
+        http://repo.steampowered.com/steamos/dists/alchemist/main/debian-installer/binary-amd64/Packages.gz \
+        http://repo.steampowered.com/steamos/dists/alchemist/main/binary-i386/Packages.gz \
 	http://repo.steampowered.com/steamos/dists/alchemist/main/binary-amd64/Packages.gz \
 	http://repo.steampowered.com/steamos/dists/alchemist/contrib/binary-i386/Packages.gz \
 	http://repo.steampowered.com/steamos/dists/alchemist/contrib/binary-amd64/Packages.gz \
@@ -25,7 +27,8 @@ distfiles="http://repo.steampowered.com/steamos/dists/alchemist/main/binary-i386
 	http://ftp.debian.org/debian/dists/wheezy/contrib/binary-amd64/Packages.gz \
 	http://ftp.debian.org/debian/dists/wheezy/non-free/binary-all/Packages.gz \
 	http://ftp.debian.org/debian/dists/wheezy/non-free/binary-i386/Packages.gz \
-	http://ftp.debian.org/debian/dists/wheezy/non-free/binary-amd64/Packages.gz "
+	http://ftp.debian.org/debian/dists/wheezy/non-free/binary-amd64/Packages.gz \
+        "
 
 # show how to user ./addtopool.sh
 usage ( ) {
@@ -53,7 +56,7 @@ download ( ) {
 
 # Move the packages to the pool
 move ( ) {
-	files=$(ls ${pkgdir}|grep ".deb")
+	files=$(ls ${pkgdir}|grep ".*deb")
 
 	for package in ${files}; do
 		# Set new location

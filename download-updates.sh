@@ -36,6 +36,12 @@ for area in ${repoareas}; do
 	for arch in ${architectures}; do
 		# download repo packagelist
 		wget -q ${repourl}/dists/${reponame}/${area}/binary-${arch}/Packages.gz
+		if [[ ! $? -eq 0 ]]; then
+		        echo " "
+		        echo "Couldn't download ${repourl}/dists/${reponame}/${area}/binary-${arch}/Packages.gz"
+		        echo " "
+		        break
+		fi
 		
 		# copy the filename strings from the Package.gz from both the local buildroot and the repo into textfiles
 		gunzip -c buildroot/dists/alchemist/${area}/binary-${arch}/Packages.gz|grep Filename|cut -d" " -f2|sort > buildroot.txt
@@ -74,17 +80,12 @@ skippednr=$(echo "${skipped}"|wc -w)
 
 # output result
 
-if [[ ${downloadnr} -eq 0 ]] && [[ ${skippednr} -eq 0 ]]; then
-	echo " "
-	echo "Your buildroot was up-to-date already"
-else
-	echo "Downloaded packages: ${downloaded}"
-	echo " "
-	echo "Skipped packages: ${skipped}"
-	echo " "
-	echo "${downloadednr} package have been downloaded"
-	echo "${skippednr} packages have been skipped"
-	echo " "
-	echo "The updated packages have been moved to ${downloaddir}. To add them to the pool run: ./addtopool.sh ${downloaddir}"
-	echo "Skipped packages can be downloaded at ${repourl} if needed."
-fi
+echo "Downloaded packages: ${downloaded}"
+echo " "
+echo "Skipped packages: ${skipped}"
+echo " "
+echo "${downloadednr} package have been downloaded"
+echo "${skippednr} packages have been skipped"
+echo " "
+echo "The updated packages have been moved to ${downloaddir}. To add them to the pool run: ./addtopool.sh ${downloaddir}"
+echo "Skipped packages can be downloaded at ${repourl} if needed."
