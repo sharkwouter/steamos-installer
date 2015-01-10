@@ -195,49 +195,28 @@ checkduplicates ( ) {
 	echo ""
 	echo "Removing duplicate packages:"
 	echo ""
-	
-	# create a list with all packages
-	files=$(ls buildroot/pool/*/*/*/*|grep -v ":"|grep ".deb")
-	
+
 	# find package names which are listed twice
-	duplicates=$(echo $files|tr "\ " "\n"|cut -d"_" -f1|uniq -d)
+	duplicates=$(ls -R buildroot/pool/|grep ".*deb"|cut -d"_" -f1,3|sort|uniq -d)
 
 	for curdupname in ${duplicates}; do
-		curdupfiles=$(ls `echo "$files"|tr "\ " "\n"|grep "${curdupname}\_"|tr "\n" "\ "`)
+	        searchname=$(echo ${curdupname}|sed 's/_/_*_/g')
+		curdupfiles=$(ls buildroot/pool/*/*/*/${searchname}|sort -V|tr "\n" "\ ")
+		echo "current duplicate files: ${curdupfiles}"
 		
-		# seperate packages with different architectures
-		curdupamd64=$(echo $curdupfiles|tr "\ " "\n"|grep amd64)
-		curdupi386=$(echo $curdupfiles|tr "\ " "\n"|grep i386)
-		curdupall=$(echo $curdupfiles|tr "\ " "\n"|grep all)
+		# check the amount of packages
+		nrdubs=$(echo ${curdupfiles}|wc -w)
+		echo "${curdupname}: ${nrdubs}"
 		
-		# check the amount of packages per architecture
-		nramd64=$(echo $curdupamd64|wc -w)
-		nri386=$(echo $curdupi386|wc -w)
-		nrall=$(echo $curdupall|wc -w)
+		# remove the everything but the latest package
+		toremove=$(echo ${curdupfiles}|cut -f1-$((nrdubs-1)) -d" ")
+		echo "Removing: ${toremove}"
+		rm ${toremove}
+		tokeep=$(echo ${curdupfiles}|cut -f$((nrdubs)) -d" ")
+		echo "Keeping: ${tokeep}"
 		
-		# remove the everything but the latest package, good thing ls sorts alphabethically
-		if [ ${nramd64} -gt 1 ]; then
-			toremove=$(echo $curdupamd64|cut -f1-$((nramd64-1)) -d" ")
-			echo "Removing: $toremove"
-			rm ${toremove}
-			tokeep=$(echo $curdupamd64|cut -f$((nramd64)) -d" ")
-			echo "Keeping: $tokeep"
-		fi
-		if [ ${nri386} -gt 1 ]; then
-			toremove=$(echo $curdupi386|cut -f1-$((nri386-1)) -d" ")
-			echo "Removing: $toremove"
-			rm ${toremove}
-			tokeep=$(echo $curdupi386|cut -f$((nri386)) -d" ")
-			echo "Keeping: $tokeep"
-		fi
-		if [ ${nrall} -gt 1 ]; then
-			toremove=$(echo $curdupall|cut -f1-$((nrall-1)) -d" ")
-			echo "Removing: $toremove"
-			rm ${toremove}
-			tokeep=$(echo $curdupall|cut -f$((nrall)) -d" ")
-			echo "Keeping: $tokeep"
-		fi
-
+		# check if toremove is in the pool
+		
 	done
 }
 
