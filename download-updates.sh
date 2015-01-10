@@ -10,6 +10,9 @@ architectures="amd64 i386 all"
 distsdir="package-lists"
 downloaddir="updates"
 
+buildroottextfile="${distsdir}/buildroot.txt"
+repotextfile="${distsdir}/repo.txt"
+
 # create download dir
 mkdir -p ${downloaddir}
 mkdir -p ${distsdir}
@@ -38,17 +41,26 @@ while read repo; do
         		        break
         		fi
         		packagelist=$(echo ${packagelist}|cut -d"/" -f3-)
+        		
+        		# use amd64 as arch for the buildroot when all is the current arch
+        		# this because SteamOS iso has no Package.gz for all, instead all has been merged into amd64 
+        		if [[ "${arch}" = "all" ]]; then
+        		        steamosarch="amd64"
+        		else
+        		        steamosarch="${arch}"
+        		fi
+        		
         		# copy the filename strings from the Package.gz from both the local buildroot and the repo into textfiles
-        		gunzip -c buildroot/dists/alchemist/${area}/binary-${arch}/Packages.gz|grep Filename|cut -d" " -f2|sort > buildroot.txt
-        		gunzip -c ${distsdir}/${packagelist}|grep Filename|cut -d" " -f2|sort > repo.txt
+        		gunzip -c buildroot/dists/alchemist/${area}/binary-${steamosarch}/Packages.gz|grep Filename|cut -d" " -f2|sort > ${buildroottextfile}
+        		gunzip -c ${distsdir}/${packagelist}|grep Filename|cut -d" " -f2|sort > ${repotextfile}
                         
         		# create a list of packages which have different versions in the repo than the ones in the buildroot
-        		diffpkgs=$(grep -F "`cat buildroot.txt|cut -d'_' -f1|sed 's/$/_/'`" repo.txt|grep -Fvxf "buildroot.txt")
+        		diffpkgs=$(grep -F "`cat ${buildroottextfile}|cut -d'_' -f1|sed 's/$/_/'`" ${repotextfile}|grep -Fvxf "${buildroottextfile}")
                         
         		# download all the new packages
         		for pkg in ${diffpkgs}; do
         			pkgname=$(echo "${pkg}"|cut -d"_" -f1)
-        			oldpkg=$(grep "${pkgname}" buildroot.txt)
+        			oldpkg=$(grep "${pkgname}" ${buildroottextfile})
         			newestpkg=$(echo -e "${pkg}\n${oldpkg}"|sort -V|tail -1)
         			if [[ ! -z ${oldpkg} ]] && [[ "x${pkg}" == "x${newestpkg}" ]]; then
         			        if [[ -z $(echo "${downloaded}"|grep ${pkg}) ]]; then
@@ -67,8 +79,8 @@ while read repo; do
         		done
                          
         		# clean up
-        		rm buildroot.txt
-        		rm repo.txt
+        		rm ${buildroottextfile}
+        		rm ${repotextfile}
         	done
         done
 # throw sources.list into the while loop        
