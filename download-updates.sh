@@ -91,7 +91,6 @@ downloadednr=$(echo "${downloaded}"|wc -w)
 skippednr=$(echo "${skipped}"|wc -w)
 
 # output result
-
 echo "Downloaded packages: ${downloaded}"
 echo " "
 echo "Skipped packages: ${skipped}"
