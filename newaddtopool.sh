@@ -56,6 +56,22 @@ fi
 # create download location for Package.gz files
 mkdir -p ${distsdir}
     
+# list the files in 
+files=$(ls ${pkgdir}|grep ".*deb")
+
+# download repo packagelist
+packagelist="${repourl}/dists/${reponame}/${area}/binary-${arch}/Packages.gz"
+if [[ $update -eq 1 ]] || [ ! -d ${distsdir} ]; then
+        wget -q -x  -P ${distsdir} "${packagelist}"
+        if [[ ! $? -eq 0 ]]; then
+                echo " "
+                echo "Couldn't download ${packagelist}"
+                echo " "
+        fi
+fi    
+
+# 
+
 # this loop reads sources.list  
 while read repo; do
         # ignore line if empty or starting with #
@@ -71,17 +87,6 @@ while read repo; do
         # check each part of the repo
         for area in ${repoareas}; do
         	for arch in ${architectures}; do
-        		# download repo packagelist
-        		packagelist="${repourl}/dists/${reponame}/${area}/binary-${arch}/Packages.gz"
-        		if [[ $update -eq 1 ]] || [ ! -d ${distsdir} ]; then
-        		        wget -q -x  -P ${distsdir} "${packagelist}"
-        		        if [[ ! $? -eq 0 ]]; then
-        		                echo " "
-        		                echo "Couldn't download ${packagelist}"
-        		                echo " "
-        		                break
-        		        fi
-        		fi
         		packagelist=$(echo ${packagelist}|cut -d"/" -f3-)
         		# copy the filename strings from the Package.gz from both the local buildroot and the repo into textfiles
         		gunzip -c buildroot/${packagelist}|grep Filename|cut -d" " -f2|sort > buildroot.txt

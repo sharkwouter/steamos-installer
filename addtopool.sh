@@ -4,104 +4,123 @@
 # It currently accepts the options -i, -r and -n.
 
 # Set variables
-distdir="package-list"
-distfiles="http://repo.steampowered.com/steamos/dists/alchemist/main/debian-installer/binary-i386/Packages.gz \
-        http://repo.steampowered.com/steamos/dists/alchemist/main/debian-installer/binary-amd64/Packages.gz \
-        http://repo.steampowered.com/steamos/dists/alchemist/main/binary-i386/Packages.gz \
-	http://repo.steampowered.com/steamos/dists/alchemist/main/binary-amd64/Packages.gz \
-	http://repo.steampowered.com/steamos/dists/alchemist/contrib/binary-i386/Packages.gz \
-	http://repo.steampowered.com/steamos/dists/alchemist/contrib/binary-amd64/Packages.gz \
-	http://repo.steampowered.com/steamos/dists/alchemist/non-free/binary-i386/Packages.gz \
-	http://repo.steampowered.com/steamos/dists/alchemist/non-free/binary-amd64/Packages.gz \
-	http://repo.steampowered.com/steamos/dists/alchemist_beta/main/binary-i386/Packages.gz \
-	http://repo.steampowered.com/steamos/dists/alchemist_beta/main/binary-amd64/Packages.gz \
-	http://repo.steampowered.com/steamos/dists/alchemist_beta/contrib/binary-i386/Packages.gz \
-	http://repo.steampowered.com/steamos/dists/alchemist_beta/contrib/binary-amd64/Packages.gz \
-	http://repo.steampowered.com/steamos/dists/alchemist_beta/non-free/binary-i386/Packages.gz \
-	http://repo.steampowered.com/steamos/dists/alchemist_beta/non-free/binary-amd64/Packages.gz \
-	http://ftp.debian.org/debian/dists/wheezy/main/binary-all/Packages.gz \
-	http://ftp.debian.org/debian/dists/wheezy/main/binary-i386/Packages.gz \
-	http://ftp.debian.org/debian/dists/wheezy/main/binary-amd64/Packages.gz \
-	http://ftp.debian.org/debian/dists/wheezy/contrib/binary-all/Packages.gz \
-	http://ftp.debian.org/debian/dists/wheezy/contrib/binary-i386/Packages.gz \
-	http://ftp.debian.org/debian/dists/wheezy/contrib/binary-amd64/Packages.gz \
-	http://ftp.debian.org/debian/dists/wheezy/non-free/binary-all/Packages.gz \
-	http://ftp.debian.org/debian/dists/wheezy/non-free/binary-i386/Packages.gz \
-	http://ftp.debian.org/debian/dists/wheezy/non-free/binary-amd64/Packages.gz \
-        "
+distdir="package-lists"
+architectures="i386 amd64 all"
+olderdir="old-versions"
 
 # show how to user ./addtopool.sh
 usage ( ) {
 	echo "Usage: $0 [ -r ] [ -i ] [ -n ] packageslocation"
 	echo "-u 		Update the package lists"
-	echo "-i		Ignore versions of packages"
-	echo "-n		Create new directories, when the package isn't found in any of the repos"
 	exit 1
 }
 
 # Download all the package list files in the list distfiles
 download ( ) {
-	if [[ $update -eq 1 ]] || [ ! -d ${distdir} ]; then
-		mkdir -p ${distdir}
-		distnumber=1
-		for pkglist in ${distfiles};do
-			wget -P ${distdir} ${pkglist}
-			distfilename=$(echo $pkglist|rev|cut -d"/" -f1|rev)
-			gunzip -c ${distdir}/${distfilename}|grep Filename|cut -d" " -f2 > ${distdir}/files${distnumber}.txt
-			rm ${distdir}/${distfilename}
-			distnumber=$(($distnumber+1))
-		done
+        if [[ $update -eq 1 ]] || [ ! -d ${distdir} ]; then
+                mkdir -p ${distdir}
+                while read repo; do
+                        # ignore line if empty or starting with #
+                        if [[ "$(echo ${repo}|cut -c1)" = "#" ]] || [[ -z ${repo} ]]; then
+                                break
+                        fi
+        
+                        # get required info from repo string
+                        repourl=$(echo $repo|cut -d" " -f2)
+                        reponame=$(echo $repo|cut -d" " -f3)
+                        repoareas=$(echo $repo|cut -d" " -f4-)
+                        for area in ${repoareas}; do
+        	                for arch in ${architectures}; do
+        	                        packagelist="${repourl}/dists/${reponame}/${area}/binary-${arch}/Packages.gz"
+                                        wget -q -x  -P ${distsdir} "${packagelist}"
+                                        if [[ ! $? -eq 0 ]]; then
+                                                echo " "
+                                                echo "Couldn't download ${packagelist}"
+                                                echo " "
+                                        fi
+                                done
+                        done
+                done < sources.list
 	fi
 }
 
 # Move the packages to the pool
 move ( ) {
-	files=$(ls ${pkgdir}|grep ".*deb")
+	files=$(ls ${pkgdir}|grep ".*deb"|cut -d"_" -f1,3)
+	
+	nonuniq=$(echo $files|tr "\ " "\n"|uniq -d)
+	
+	# compare versions in duplicate packages are found
+	if [[ ! -z nonuniq ]]; then
+	        mkdir -p ${pkgdir}/${olderdir}
+	        for package in ${nonuniq}; do
+	                # here it's going to check which file is the newest and move everything
+	                searchname=$(echo ${package}|sed 's/_/_*_/g')
+	                pkgversions=$(ls ${pkgdir}/${searchname})
+	                newest=$(echo ${pkgversions}|tr "\ " "\n"|sort -V|tail -1)
+	                pkgversions=$(echo ${pkgversions}|sed "s#${newest}##")
+	                for version in ${pkgversions}; do
+	                        files==$(echo ${files}|sed "s#${version}##")
+	                        mv ${version} ${pkgdir}/${olderdir}
+	                        mvdolderdir="${mvdolderdir} ${version}"
+	                done
+	        done
+	fi
 
-	for package in ${files}; do
-		# Set new location
-		if [[ $ignoreversions -eq 1 ]]; then
-			location=$(cat ${distdir}/files*.txt|grep -m 1 $(echo "${package}"|cut -d"_" -f1)|cut -d "/" -f-4)
-		else
-			location=$(cat ${distdir}/files*.txt|grep -m 1 ${package}|cut -d "/" -f-4)
-		fi
-		if [[ -z ${location} ]]; then
-			# When no potential location has been found
-			echo "Couldn't find ${package} in any of the repos"
-		fi
-		if [[ $newpkgs -eq 1 ]] && [[ -z ${location} ]]; then
-			# Force new location if not set and the -n flag has been used
-			if [[ "$(echo ${package}|cut -c-3)" == "lib" ]]; then
-				ldir1=$(echo ${package}|cut -c-4)
-				ldir2=$(echo ${package}|cut -d"_" -f1)
-			else
-				ldir1=$(echo ${package}|cut -c-1)
-				ldir2=$(echo ${package}|cut -d"_" -f1)
-			fi
-			location="pool/main/${ldir1}/${ldir2}"
-			echo "Creating and moving ${package} to directory ${location} anyway"
-		fi
-		if [[ ${location} ]]; then
-			# Make the directory and move the file it it
-			mkdir -p ${location}
-			echo "Moving ${package} to ${location}"
-			mv ${pkgdir}/${package} ${location}
-		fi
-done
-
-echo "Done! If any packages have been moved, you can find them in ${PWD}/pool"
+        # find out where the package belongs and move it there
+        for package in ${files}; do
+                found=0
+                while read repo; do
+                        if [[ ! ${found} -eq 0 ]]; then
+                                break
+                        fi
+                        repourl=$(echo $repo|cut -d" " -f2)
+                        reponame=$(echo $repo|cut -d" " -f3)
+                        repoareas=$(echo $repo|cut -d" " -f4-)
+                        for area in ${repoareas}; do
+        	                for arch in ${architectures}; do
+        	                        repodir=$(echo ${repourl}|cut -d"/" -f3-)
+        	                        packagesfile="${distdir}/${repodir}/dists/${reponame}/${area}/binary-${arch}/Packages.gz"
+        	                        
+        	                        if [[ -f ${packagesfile} ]] && [[ ${found} -eq 0 ]]; then
+        	                                location=$(zgrep "Filename:" ${packagesfile}|grep -m 1 $(echo "${package}"|cut -d"_" -f1)|cut -d "/" -f-4)
+        	                                if [[ ! -z ${location} ]]; then
+        	                                        searchname=$(echo ${package}|sed 's/_/_*_/g')
+        	                                        mkdir -p pool/${location}
+        	                                        mv -f ${pkgdir}/${searchname} pool/${location}
+        	                                        mvdpool="${mvdpool} ${package}"
+        	                                        found=1
+        	                                fi
+        	                        fi
+        	                done
+        	        done
+                done < sources.list
+        done
 }
 
+printresult ( ) {
+        mvdpoolnr=$(echo ${mvdpool}|wc -w)
+        mvdolderdirnr=$(echo ${mvdolderdir}|wc -w)
+        # display the results to the user
+        echo " "
+        echo "Done!"
+        echo " "
+        echo "Moved to pool: ${mvdpool}"
+        echo " "
+        echo "Moved to ${pkgdir}/${olderdir}: ${mvdolderdir}"
+        echo " "
+        echo "${mvdpoolnr} packages were added to the pool."
+        echo "${mvdolderdirnr} packages were move to ${pkgdir}/${olderdir} because a newer version was found in ${pkgdir}."
+}
 # Setup command line arguments
 if [[ $# -eq 0 ]]; then
 	usage
 fi
 
-while getopts uin opt
+while getopts un opt
 do
 	case $opt in
 		u) update=1;;
-		i) ignoreversions=1;;
 		n) newpkgs=1;;
 		*)usage;;
 	esac
@@ -127,3 +146,4 @@ fi
 # Actually do stuff
 download
 move
+printresult
