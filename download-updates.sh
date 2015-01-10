@@ -55,7 +55,7 @@ while read repo; do
         		gunzip -c ${distsdir}/${packagelist}|grep Filename|cut -d" " -f2|sort > ${repotextfile}
                         
         		# create a list of packages which have different versions in the repo than the ones in the buildroot
-        		diffpkgs=$(grep -F "`cat ${buildroottextfile}|cut -d'_' -f1|sed 's/$/_/'`" ${repotextfile}|grep -Fvxf "${buildroottextfile}")
+        		diffpkgs=$(grep -F "`cat ${buildroottextfile}|cut -d'_' -f1|sed 's/$/_/'`" ${repotextfile}|grep -Fvf "${buildroottextfile}")
                         
         		# download all the new packages
         		for pkg in ${diffpkgs}; do
