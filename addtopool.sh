@@ -10,7 +10,7 @@ olderdir="old-versions"
 
 # show how to user ./addtopool.sh
 usage ( ) {
-	echo "Usage: $0 [ -r ] [ -i ] [ -n ] packageslocation"
+	echo "Usage: $0 [ -u ] packageslocation"
 	echo "-u 		Update the package lists"
 	exit 1
 }
