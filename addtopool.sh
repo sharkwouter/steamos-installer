@@ -67,6 +67,9 @@ move ( ) {
 	        done
 	fi
 
+        # reset files, otherwise there will still be duplicate entries
+        files=$(ls ${pkgdir}|grep ".*deb"|cut -d"_" -f1,3)
+
         # find out where the package belongs and move it there
         for package in ${files}; do
                 found=0
@@ -83,7 +86,7 @@ move ( ) {
         	                        packagesfile="${distdir}/${repodir}/dists/${reponame}/${area}/binary-${arch}/Packages.gz"
         	                        
         	                        if [[ -f ${packagesfile} ]] && [[ ${found} -eq 0 ]]; then
-        	                                location=$(zgrep "Filename:" ${packagesfile}|grep -m 1 $(echo "${package}"|cut -d"_" -f1)|cut -d "/" -f-4)
+        	                                location=$(zgrep "Filename:" ${packagesfile}|cut -d":" -f2-|grep -m 1 $(echo "${package}"|cut -d"_" -f1)|cut -d "/" -f-4)
         	                                if [[ ! -z ${location} ]]; then
         	                                        searchname=$(echo ${package}|sed 's/_/_*_/g')
         	                                        mkdir -p pool/${location}
