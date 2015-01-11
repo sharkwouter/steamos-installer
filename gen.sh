@@ -203,7 +203,7 @@ checkduplicates ( ) {
 	for curdupname in ${duplicates}; do
 	        searchname=$(echo ${curdupname}|sed 's/_/_*_/g')
 	        curarch=$(echo ${searchname}|cut -d"_" -f3)
-		curdupfiles=$(ls buildroot/pool/*/*/*/${searchname}|cut -d"_" -f1-2|sort -V|sed "s/\$/_${curarch}/g"|tr "\n" "\ ")
+		curdupfiles=$(ls -1 buildroot/pool/*/*/*/${searchname}|cut -d"_" -f1-2|sort -V|sed "s/\$/_${curarch}/g"|tr "\n" "\ ")
 		echo "current duplicate files: ${curdupfiles}"
 		
 		# check the amount of packages
@@ -253,6 +253,9 @@ createiso ( ) {
 	fi
 	if [ -f "/usr/lib/syslinux/isohdpfx.bin" ]; then
 		SYSLINUX="/usr/lib/syslinux/isohdpfx.bin"
+	fi
+	if [ -f "isohdpfx.bin" ]; then
+		SYSLINUX="isohdpfx.bin"
 	fi
 	if [ -z $SYSLINUX ]; then
 		echo "Error: isohdpfx not found! If you're a debian user, install the syslinux and syslinux-common packages from Ubuntu."
