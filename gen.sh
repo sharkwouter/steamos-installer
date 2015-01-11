@@ -27,7 +27,7 @@ EOF
 #Check some basic dependencies this script needs to run
 deps ( ) {
 	#Check dependencies
-	deps="apt-utils xorriso syslinux rsync wget p7zip-full realpath"
+	deps="apt-utils xorriso syslinux rsync wget p7zip-full"
 	for dep in ${deps}; do
 		if dpkg-query -s ${dep} >/dev/null 2>&1; then
 			:
@@ -61,38 +61,6 @@ rebuild ( ) {
 	fi
 }
 
-#Report on obsolete packages
-#This function is no longer used, but it kept for reference
-obsoletereport ( ) {
-	if [ ! -d ${REPODIR} ]; then
-		echo "No ${REPODIR} directory exists, run archive-mirror.sh if you want this script to report obsolete packages"
-	else
-		echo "Reporting on packages which are older in ${BUILD} than ${REPODIR}"
-		echo "\nPackagename\t\ttype\tarch\told version\tnew version\n"
-		REPODIR="`realpath ${REPODIR}`"
-		NEWPKGSDIR="updates"
-		mkdir -p ${NEWPKGSDIR}
-		NEWPKGSDIR="`realpath ${NEWPKGSDIR}`"
-		cd ${BUILD}/pool/
-		for i in */*/*/*.*deb
-			do PKGNAME=`basename $i | cut -f1 -d'_'`
-			ARCHNAME=`basename $i | cut -f3 -d'_' | cut -f1 -d'.'`
-			PKGPATH=`dirname $i`;PKGVER=`basename $i | cut -f2 -d'_'`
-			DEBTYPE=`basename $i | sed 's/.*\.//g'`
-			if [ `ls -1 ${REPODIR}/pool/${PKGPATH}/${PKGNAME}_*_${ARCHNAME}.${DEBTYPE} 2> /dev/null | wc -l` -gt 0 ]
-				then NEWPKGVER=$(basename `ls -1 ${REPODIR}/pool/${PKGPATH}/${PKGNAME}_*_${ARCHNAME}.${DEBTYPE} | sort -V | tail -1` | cut -f2 -d'_')
-				NEWESTPKG=$(bash -c "echo -e '${PKGVER}\n${NEWPKGVER}'"|sort -V|tail -1)
-				if [ "x${NEWPKGVER}" = "x${NEWESTPKG}" ] && [ "x${PKGVER}" != "x${NEWESTPKG}" ]
-					then echo "${PKGNAME}\t\t${DEBTYPE}\t${ARCHNAME}\t${PKGVER}\t${NEWPKGVER}"
-					cp ${REPODIR}/pool/${PKGPATH}/${PKGNAME}_${NEWPKGVER}_${ARCHNAME}.${DEBTYPE} ${NEWPKGSDIR}/
-				fi
-			fi
-		done
-		cd -
-		echo "Newer packages have been copied to ${NEWPKGSDIR}"
-		echo "To add the packages to the pool run: ./addtopool.sh ${NEWPKGSDIR}"
-	fi
-}
 #Extract the upstream SteamOSDVD.iso from repo.steampowered.com
 extract ( ) {
 	#Download SteamOSDVD.iso
@@ -258,7 +226,7 @@ createiso ( ) {
 		SYSLINUX="isohdpfx.bin"
 	fi
 	if [ -z $SYSLINUX ]; then
-		echo "Error: isohdpfx not found! If you're a debian user, install the syslinux and syslinux-common packages from Ubuntu."
+		echo "Error: isohdpfx.bin not found! Try putting it in ${pwd}."
 		exit 1	
 	fi
 	
