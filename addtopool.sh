@@ -20,26 +20,24 @@ download ( ) {
         if [[ $update -eq 1 ]] || [ ! -d ${distdir} ]; then
                 mkdir -p ${distdir}
                 while read repo; do
-                        # ignore line if empty or starting with #
-                        if [[ "$(echo ${repo}|cut -c1)" = "#" ]] || [[ -z ${repo} ]]; then
-                                break
-                        fi
-        
-                        # get required info from repo string
-                        repourl=$(echo $repo|cut -d" " -f2)
-                        reponame=$(echo $repo|cut -d" " -f3)
-                        repoareas=$(echo $repo|cut -d" " -f4-)
-                        for area in ${repoareas}; do
-        	                for arch in ${architectures}; do
-        	                        packagelist="${repourl}/dists/${reponame}/${area}/binary-${arch}/Packages.gz"
-                                        wget -q -x  -P ${distsdir} "${packagelist}"
-                                        if [[ ! $? -eq 0 ]]; then
-                                                echo " "
-                                                echo "Couldn't download ${packagelist}"
-                                                echo " "
-                                        fi
-                                done
-                        done
+                        # ignore line which don't start with deb
+        		if [[ "$(echo ${repo}|cut -d" " -f1)" = "deb" ]]; then 
+                        	# get required info from repo string
+                        	repourl=$(echo $repo|cut -d" " -f2)
+                        	reponame=$(echo $repo|cut -d" " -f3)
+                        	repoareas=$(echo $repo|cut -d" " -f4-)
+                        	for area in ${repoareas}; do
+        	                	for arch in ${architectures}; do
+        	                        	packagelist="${repourl}/dists/${reponame}/${area}/binary-${arch}/Packages.gz"
+                                        	wget -q -x  -P ${distsdir} "${packagelist}"
+                                        	if [[ ! $? -eq 0 ]]; then
+                                                	echo " "
+                                                	echo "Couldn't download ${packagelist}"
+                                                	echo " "
+                                        	fi
+                                	done
+                        	done
+              		fi
                 done < sources.list
 	fi
 }
