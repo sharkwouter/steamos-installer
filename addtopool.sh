@@ -87,8 +87,8 @@ move ( ) {
         	                                location=$(zgrep "Filename:" ${packagesfile}|cut -d":" -f2-|grep -m 1 $(echo "${package}"|cut -d"_" -f1)|cut -d "/" -f-4)
         	                                if [[ ! -z ${location} ]]; then
         	                                        searchname=$(echo ${package}|sed 's/_/_*_/g')
-        	                                        mkdir -p pool/${location}
-        	                                        mv -f ${pkgdir}/${searchname} pool/${location}
+        	                                        mkdir -p ${location}
+        	                                        mv -f ${pkgdir}/${searchname} ${location}
         	                                        mvdpool="${mvdpool} ${package}"
         	                                        found=1
         	                                fi
