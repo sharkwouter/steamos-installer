@@ -61,7 +61,8 @@ while read repo; do
         		for pkg in ${diffpkgs}; do
         			pkgname=$(echo "${pkg}"|cut -d"_" -f1)
         			oldpkg=$(grep "${pkgname}" ${buildroottextfile})
-        			newestpkg=$(echo -e "${pkg}\n${oldpkg}"|sort -V|tail -1)
+        			endofname=$(echo ${pkg}|cut -d "_" -f3)
+        			newestpkg=$(echo -e "${pkg}\n${oldpkg}"|cut -d"_" -f1-2|sort -V|sed "s/\$/_${endofname}/g"|tail -1)
         			if [[ ! -z ${oldpkg} ]] && [[ "x${pkg}" == "x${newestpkg}" ]]; then
         			        if [[ -z $(echo "${downloaded}"|grep ${pkg}) ]]; then
         				        echo "buildroot: ${oldpkg}"
@@ -86,6 +87,20 @@ while read repo; do
 # throw sources.list into the while loop        
 done < sources.list
 
+while getopts s opt
+do
+	case $opt in
+		s) showskipped=1;;
+		*)usage;;
+	esac
+done
+
+usage ( ) {
+        echo "Usage: $0 [ -s ]"
+	echo "-s 		Show packages which were skipped because they are older than what's in the pool"
+	exit 1
+}
+
 # calculate results
 downloadednr=$(echo "${downloaded}"|wc -w)
 skippednr=$(echo "${skipped}"|wc -w)
@@ -93,10 +108,14 @@ skippednr=$(echo "${skipped}"|wc -w)
 # output result
 echo "Downloaded packages: ${downloaded}"
 echo " "
-echo "Skipped packages: ${skipped}"
-echo " "
 echo "${downloadednr} package have been downloaded"
-echo "${skippednr} packages have been skipped"
+
+if [[ ! -z ${showskipped} ]];then
+        echo " "
+        echo "Skipped packages: ${skipped}"
+        echo " "
+        echo "${skippednr} packages have been skipped"
+fi
+
 echo " "
-echo "The updated packages have been moved to ${downloaddir}. To add them to the pool run: ./addtopool.sh ${downloaddir}"
-echo "Skipped packages can be downloaded at ${repourl} if needed."
+echo "Downloaded packages are moved to ${downloaddir}. To add them to the pool run: ./addtopool.sh ${downloaddir}"

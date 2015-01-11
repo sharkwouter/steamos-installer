@@ -62,6 +62,7 @@ rebuild ( ) {
 }
 
 #Report on obsolete packages
+#This function is no longer used, but it kept for reference
 obsoletereport ( ) {
 	if [ ! -d ${REPODIR} ]; then
 		echo "No ${REPODIR} directory exists, run archive-mirror.sh if you want this script to report obsolete packages"
@@ -201,7 +202,8 @@ checkduplicates ( ) {
 
 	for curdupname in ${duplicates}; do
 	        searchname=$(echo ${curdupname}|sed 's/_/_*_/g')
-		curdupfiles=$(ls buildroot/pool/*/*/*/${searchname}|sort -V|tr "\n" "\ ")
+	        curarch=$(echo ${searchname}|cut -d"_" -f3)
+		curdupfiles=$(ls buildroot/pool/*/*/*/${searchname}|cut -d"_" -f1-2|sort -V|sed "s/\$/_${curarch}/g"|tr "\n" "\ ")
 		echo "current duplicate files: ${curdupfiles}"
 		
 		# check the amount of packages
@@ -326,6 +328,3 @@ createiso
 
 #Generate rocket.iso.md5 file
 mkchecksum
-
-#Report on packages where newer is in the archive
-obsoletereport
