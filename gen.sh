@@ -11,8 +11,10 @@ ISOVNAME="VaporOS1.3"
 UPSTREAMURL="http://repo.steampowered.com"
 STEAMINSTALLFILE="SteamOSDVD.iso"
 MD5SUMFILE="MD5SUMS"
-KNOWNINSTALLER="e0583f17ea8f6d5307b74a0d28a99a5e"
+KNOWNINSTALLER="223022db23d66070f959e464ad2da376"
 REPODIR="./archive-mirror/mirror/repo.steampowered.com/steamos"
+
+rmfrompooldir="removed-from-pool"
 
 #Show how to use gen.sh
 usage ( )
@@ -124,13 +126,26 @@ createbuildroot ( ) {
 
 	#Copy over updated and added debs
 	#First remove uneeded debs
-	debstoremove="pool/main/l/lvm2/dmsetup_1.02.74-8+bsos7_amd64.deb pool/main/l/lvm2/libdevmapper1.02.1-udeb_1.02.74-8+bsos7_amd64.udeb pool/main/l/lvm2/dmsetup-udeb_1.02.74-8+bsos7_amd64.udeb pool/main/l/lvm2/libdevmapper-event1.02.1_1.02.74-8+bsos7_amd64.deb pool/main/l/lvm2/lvm2-udeb_2.02.95-8+bsos7_amd64.udeb pool/main/l/lvm2/libdevmapper1.02.1_1.02.74-8+bsos7_amd64.deb pool/main/l/lvm2/liblvm2app2.2_2.02.95-8+bsos7_amd64.deb pool/main/d/debian-archive-keyring/debian-archive-keyring-udeb_2012.4+bsos6_all.udeb pool/main/e/eglibc/libc6-udeb_2.17-97+steamos1+bsos1_amd64.udeb pool/main/libg/libgcrypt11/libgcrypt11-udeb_1.5.0-5+deb7u1+bsos6_amd64.udeb pool/main/l/linux/linux-headers-3.10-4-amd64_3.10.11-1+steamos29+bsos1_amd64.deb pool/main/l/linux/linux-headers-3.10-4-common_3.10.11-1+steamos29+bsos1_amd64.deb pool/main/l/linux/linux-image-3.10-4-amd64_3.10.11-1+steamos29+bsos1_amd64.deb"
+	debstoremove=""
 	for debremove in ${debstoremove}; do
 		if [ -f ${BUILD}/${debremove} ]; then
 			echo "Removing ${BUILD}/${debremove}..."
 			rm -fr "${BUILD}/${debremove}"
 		fi
 	done
+	
+	# here packages which are both in the iso and the 
+	# ls pool/*/*/*/|grep -v ":"|sort|sed '/^$/d'
+	duplicates=$(ls pool/*/*/*/|grep -v ":"|sed '/^$/d'|xargs ls buildroot/pool/*/*/*/|grep -v ":"|sed '/^$/d')
+	
+	for duplicate in ${duplicates}; do
+	echo "wd: ${PWD}"
+		mkdir -p ${rmfrompooldir}
+		mv -f pool/*/*/*/${duplicate} ${rmfrompooldir}
+	done
+	
+	# remove empty directories from pool
+	find pool -empty -type d -delete
 
 	#Delete all firmware from /firmware/
 	echo "Removing bundled firmware"
@@ -185,8 +200,17 @@ checkduplicates ( ) {
 		tokeep=$(echo ${curdupfiles}|cut -f$((nrdubs)) -d" ")
 		echo "Keeping: ${tokeep}"
 		
-		# check if toremove is in the pool
+		# check if packages in toremove are in the pool directory. If they are, move them out.
+		for removed in ${toremove}; do
+			locationinpool=$(echo ${removed}|cut -d"/" -f2-)
+			if [ -f ${locationinpool} ]; then
+				mkdir -p ${rmfrompooldir}
+				mv -f ${locationinpool} ${rmfrompooldir}
+			fi
+		done
 		
+		# remove empty directories
+		find pool -empty -type d -delete
 	done
 }
 
