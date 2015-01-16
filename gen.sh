@@ -139,7 +139,6 @@ createbuildroot ( ) {
 	duplicates=$(ls pool/*/*/*/|grep -v ":"|sed '/^$/d'|xargs ls buildroot/pool/*/*/*/|grep -v ":"|sed '/^$/d')
 	
 	for duplicate in ${duplicates}; do
-	echo "wd: ${PWD}"
 		mkdir -p ${rmfrompooldir}
 		mv -f pool/*/*/*/${duplicate} ${rmfrompooldir}
 	done
