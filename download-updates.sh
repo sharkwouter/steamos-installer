@@ -13,10 +13,25 @@ downloaddir="updates"
 buildroottextfile="${distsdir}/buildroot.txt"
 repotextfile="${distsdir}/repo.txt"
 
+usage ( ) {
+        echo "Usage: $0 [ -s ] [package(s)]"
+	echo "-s 		Show packages which were skipped because they are older than what's in the pool"
+	exit 1
+}
+
+while getopts s opt
+do
+	case $opt in
+		s) showskipped=1;;
+		*)usage;;
+	esac
+	shift
+done
+
 # create download dir
 mkdir -p ${downloaddir}
 mkdir -p ${distsdir}
-    
+
 # this loop reads sources.list  
 while read repo; do
         # ignore line if empty or starting with #
@@ -53,7 +68,12 @@ while read repo; do
                         
         			# create a list of packages which have different versions in the repo than the ones in the buildroot
         			diffpkgs=$(grep -F "`cat ${buildroottextfile}|cut -d'_' -f1|sed 's/$/_/g'`" ${repotextfile}|grep -Fvxf "${buildroottextfile}")
-                        
+
+                                # add packagenames from the command line
+                                for arg in $@; do
+                                        diffpkgs="${diffpkgs} ${arg}_${arch}.deb"
+                                done
+
         			# download all the new packages
         			for pkg in ${diffpkgs}; do
         				pkgname=$(echo "${pkg}"|cut -d"_" -f1)
@@ -85,20 +105,6 @@ while read repo; do
         
 # throw sources.list into the while loop        
 done < sources.list
-
-while getopts s opt
-do
-	case $opt in
-		s) showskipped=1;;
-		*)usage;;
-	esac
-done
-
-usage ( ) {
-        echo "Usage: $0 [ -s ]"
-	echo "-s 		Show packages which were skipped because they are older than what's in the pool"
-	exit 1
-}
 
 # calculate results
 downloadednr=$(echo "${downloaded}"|wc -w)
