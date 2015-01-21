@@ -71,20 +71,24 @@ while read repo; do
 
                                 # add packagenames from the command line
                                 for arg in $@; do
-                                        diffpkgs="${diffpkgs} ${arg}_${arch}.deb"
+                                        argpkg=$(grep "/${arg}_" ${repotextfile})
+                                        if [ ! -z ${argpkg} ]; then
+                                                echo "package for ${arg} found: ${argpkg}"
+                                                diffpkgs="${diffpkgs} ${argpkg}"
+                                        fi
                                 done
 
         			# download all the new packages
         			for pkg in ${diffpkgs}; do
         				pkgname=$(echo "${pkg}"|cut -d"_" -f1)
-        				oldpkg=$(grep "${pkgname}" ${buildroottextfile})
+        				oldpkg=$(grep "${pkgname}_" ${buildroottextfile})
         				endofname=$(echo ${pkg}|cut -d "_" -f3)
         				newestpkg=$(echo -e "${pkg}\n${oldpkg}"|cut -d"_" -f1-2|sort -V|sed "s/\$/_${endofname}/g"|tail -1)
-        				if [[ ! -z ${oldpkg} ]] && [[ "x${pkg}" == "x${newestpkg}" ]]; then
+        				if [[ "x${pkg}" == "x${newestpkg}" ]]; then
         			        	if [[ -z $(echo "${downloaded}"|grep ${pkg}) ]]; then
         				        	echo "buildroot: ${oldpkg}"
         				        	echo "repo: ${pkg}"
-        				
+        				                echo "pkgname: ${pkgname}"
         				        	downloaded="${downloaded} ${pkg}"
                                 	        	wget -nc -nv -P ${downloaddir} ${repourl}/${pkg}
                                 	        	echo " "
