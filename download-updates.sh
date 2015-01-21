@@ -74,6 +74,7 @@ while read repo; do
                                         argpkg=$(grep "/${arg}_" ${repotextfile})
                                         if [ ! -z ${argpkg} ]; then
                                                 echo "package for ${arg} found: ${argpkg}"
+                                                echo " "
                                                 diffpkgs="${diffpkgs} ${argpkg}"
                                         fi
                                 done
@@ -88,7 +89,7 @@ while read repo; do
         			        	if [[ -z $(echo "${downloaded}"|grep ${pkg}) ]]; then
         				        	echo "buildroot: ${oldpkg}"
         				        	echo "repo: ${pkg}"
-        				                echo "pkgname: ${pkgname}"
+        				        	
         				        	downloaded="${downloaded} ${pkg}"
                                 	        	wget -nc -nv -P ${downloaddir} ${repourl}/${pkg}
                                 	        	echo " "
