@@ -12,20 +12,20 @@ Build-Depends: debhelper (>= 9)
 Package-List: 
  vaporos-binds-xbox360 deb extra optional
 Checksums-Sha1: 
- 4ead2a9989d660ebb2954b52c97846f8526812ae 2568 vaporos-binds-xbox360_1.0.tar.gz
+ 2bbff4c0efa36239adb3484638e62eeedc87779a 2537 vaporos-binds-xbox360_1.0.tar.gz
 Checksums-Sha256: 
- fd08273e3e620b2fb626ad6d87ea028546494207622b96f2005741939ca3eb03 2568 vaporos-binds-xbox360_1.0.tar.gz
+ 66da6fccbb963fbb73fc89e1f56411db6e0c5e407f10afea03589c1f3a0133d6 2537 vaporos-binds-xbox360_1.0.tar.gz
 Files: 
- 66cb8c226a67864c9a76631463828894 2568 vaporos-binds-xbox360_1.0.tar.gz
+ a4ee33e21e0dd44092f977a33dfec3ac 2537 vaporos-binds-xbox360_1.0.tar.gz
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1
 
-iQEcBAEBAgAGBQJUqn+yAAoJEJyDbZtTI+k5PmQH/RUkBr88bh0NwkXxbvv3HQ8S
-ThS7cUi7Vv7/LvTN++6zhUX3km934HSFce9FnyXlg7ssrQ4utadilMJjL65DgNIN
-u9WHt2EgHkq0qaTr2BG1bMN74YbqsNHo1ub6cy/zpKH3YtZihQp0Ax3QZDDO6U4e
-o1fIfnBGlLDPjjDz58IxEEwk+GeYLM+4xeFERL81LMYn4Swk9MuFqjdkmFgT1HpO
-MuKYeuwD5iBtnLGKmytM+5xUIzs0o2FxtKfDm+asiMBIx8jQxSrsoaNhZjOi3iw1
-mwe/oXk47xotW6/Dlx6Mnp2ULaluaWQVJeLe9JZdf6rFEi7LNNl0EAcSm/sKguM=
-=C2bE
+iQEcBAEBAgAGBQJUzoioAAoJEJyDbZtTI+k5xh8H/Ro1nTbsi+B12rxSRhkNMC7U
+O3A2ZSZ+8eYJjyYtuuOXScpCRIhJVCbGuRftZ4XyRLSWL1mI1OQVlVV5CCDRQeMV
+oeoqc2e/lMEeb6tye5DwVnXxa1pOJnZHPloxKiCBde6t5MsVMKH4S4oAxgjfdxu3
+kZ+iob5G3xoiLuMypTU2kYTM0C2YeqJubMZPmiVAzky7OH2xd9+Z+JOjZRYmtI9g
+8pqdaQDLjcfakRdhkN95kn3xzXrsme5VkigdBjcr4SxK90WWeKL77PRfbGNuiTLK
+/aRYZA6Nh+yIY20vO8fpWvrlPf3MqNNsBJEmQmjmoHFqyTrgiuc4YOUxlErJDD0=
+=/2TO
 -----END PGP SIGNATURE-----
