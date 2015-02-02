@@ -20,3 +20,6 @@ deb http://repo.steampowered.com/steamos alchemist_beta main contrib non-free
 
 # Debian-installer from Debian repo
 #deb ftp://mirror.nl.leaseweb.net/debian wheezy main/debian-installer
+
+# XBMC/Kodi repo
+deb http://mirrors.xbmc.org/apt/steamos alchemist main
