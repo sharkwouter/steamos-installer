@@ -118,11 +118,10 @@ if [[ $# -eq 0 ]]; then
 	usage
 fi
 
-while getopts un opt
+while getopts u opt
 do
 	case $opt in
 		u) update=1;;
-		n) newpkgs=1;;
 		*)usage;;
 	esac
 done
