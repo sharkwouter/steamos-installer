@@ -4,7 +4,7 @@
  
 # Improvements
 
-- The current SteamOS iso installs SteamOS patch 145, VaporOS installs SteamOS patch 153.
+- The current SteamOS iso installs SteamOS patch for build 153.
 - VaporOS has a firewall installed by default, which can be easily configured from the desktop.
 - VaporOS asks you to set a password for the desktop user when you open the desktop for the first time.
 - VaporOS has trim support for Samsung and Intel SSD's.
