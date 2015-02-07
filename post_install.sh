@@ -70,7 +70,17 @@ wget -O - http://mirrors.xbmc.org/apt/steamos/steam@xbmc.org.gpg.key | sudo apt-
 /usr/lib/x86_64-linux-gnu/lightdm/lightdm-set-defaults -a steam -s steamos
 dbus-send --system --type=method_call --print-reply --dest=org.freedesktop.Accounts /org/freedesktop/Accounts/User1000 org.freedesktop.Accounts.User.SetXSession string:gnome
 dbus-send --system --type=method_call --print-reply --dest=org.freedesktop.Accounts /org/freedesktop/Accounts/User1001 org.freedesktop.Accounts.User.SetXSession string:steamos
-(for i in `dkms status | cut -d, -f1-2 | tr , / | tr -d ' '`; do sudo dkms remove $i --all; done) | zenity --progress --no-cancel --pulsate --auto-close --text="Configuring Kernel Modules" --title="SteamOS Installation"
+#(for i in `dkms status | cut -d, -f1-2 | tr , / | tr -d ' '`; do sudo dkms remove $i --all; done) | zenity --progress --no-cancel --pulsate --auto-close --text="Configuring Kernel Modules" --title="SteamOS Installation"
+
+# Configure the open source drivers for amd
+if [[ -n $(lspci | grep VGA | grep NVIDIA) ]]; then
+	alternative=nvidia
+else
+	alternative=mesa-diverted
+fi
+update-alternatives --set glx /usr/lib/$alternative
+update-rc.d build-dkms disable
+
 plymouth-set-default-theme -R steamos
 update-grub
 grub-set-default 0
@@ -98,15 +108,6 @@ Exec=/usr/bin/post_logon.sh
 X-GNOME-Autostart-enabled=true
 Name=postlogon
 EOF
-
-#
-# Run aticonfig if an AMD card is present
-#
-if [ -n "$(lspci|grep VGA|grep -i 'AMD\|ATI')" ]; then
-	if [ ! -n "$(lspci|grep VGA|grep NVIDIA)" ]; then
-		chroot /target update-alternatives --set glx /usr/lib/fglrx
-	fi
-fi
 
 #
 # Disable mouse acceleration

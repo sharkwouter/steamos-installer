@@ -172,6 +172,11 @@ createbuildroot ( ) {
 		echo "Copying ${file} into ${BUILD}"
 		cp -pfr ${file} ${BUILD}
 	done
+	
+	sed -i 's/fglrx-driver//' ${BUILD}/.disk/base_include
+	sed -i 's/fglrx-modules-dkms//' ${BUILD}/.disk/base_include
+	sed -i 's/libgl1-fglrx-glx//' ${BUILD}/.disk/base_include
+	sed -i 's/nvidia-driver//' ${BUILD}/.disk/base_include
 }
 
 checkduplicates ( ) {
