@@ -4,7 +4,6 @@
  
 # Improvements
 
-- VaporOS supports both UEFI and BIOS systems, while SteamOS only supports UEFI.
 - VaporOS has a firewall installed by default, which can be easily configured from the desktop.
 - VaporOS asks you to set a password for the desktop user when you open the desktop for the first time.
 - VaporOS has trim support for Samsung and Intel SSD's.
