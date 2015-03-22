@@ -1,0 +1,7 @@
+The following things might be interesting to take a look at in the future:
+
+Emulation
+Making the browser more usable(flash/java?)
+Making more games launchable, even though developers forgot to bundle java/mono?
+Debian security repo, as in: add it or fix download-updates.sh to be able to work with it.
+
