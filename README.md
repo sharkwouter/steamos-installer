@@ -4,16 +4,16 @@
  
 # Improvements
 
-- The current SteamOS iso installs SteamOS patch 145, VaporOS installs SteamOS patch 153.
 - VaporOS has a firewall installed by default, which can be easily configured from the desktop.
 - VaporOS asks you to set a password for the desktop user when you open the desktop for the first time.
 - VaporOS has trim support for Samsung and Intel SSD's.
 - VaporOS offers a better out of the box desktop experience. Things like a text editor, media player, an archive manager and Gnome Tweak Tools are installed by default.
 - VaporOS has an ssh server installed by default.
 - VaporOS installs many tools to improve the command line experience. This includes bash completion, iotop, htop, mesa-utils, libav, pastebinit, screen, git and lsof. 
-- VaporOS has XBMC installed by default.
+- VaporOS has Kodi installed by default.
 - VaporOS has no mouse acceleration.
 - VaporOS will not freeze on first boot for AMD graphics cards users, SteamOS still has this issue.
+- VaporOS offers controller binds on Xbox 360 controllers for making screenshots(LS+RS), recording(LB+RB+A to start/stop recording), displaying fps(LB+RB+X) and restarting Steam(LB+RB+Home).
 
 For a more detailed list of added package, take a look at the file changes.txt.
 

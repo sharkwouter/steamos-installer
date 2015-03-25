@@ -64,7 +64,7 @@ ufw allow 27031/udp
 # Disallow root login on ssh
 sed -i "s/PermitRootLogin\ yes/PermitRootLogin\ no/" /etc/ssh/sshd_config
 
-# Add the xbmc repo key
+# Add the xbmc/kodi repo key
 wget -O - http://mirrors.xbmc.org/apt/steamos/steam@xbmc.org.gpg.key | sudo apt-key add -
 
 /usr/lib/x86_64-linux-gnu/lightdm/lightdm-set-defaults -a steam -s steamos
