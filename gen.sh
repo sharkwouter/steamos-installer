@@ -126,7 +126,7 @@ createbuildroot ( ) {
 
 	#Copy over updated and added debs
 	#First remove uneeded debs
-	debstoremove=""
+	debstoremove="pool/main/f/file/file_5.11-2+deb7u6+bsos1_amd64.deb pool/main/o/openssl/openssl_1.0.1e-2+deb7u13+steamos1+bsos1_amd64.deb"
 	for debremove in ${debstoremove}; do
 		if [ -f ${BUILD}/${debremove} ]; then
 			echo "Removing ${BUILD}/${debremove}..."
