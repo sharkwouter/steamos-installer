@@ -138,10 +138,11 @@ createbuildroot ( ) {
 	# ls pool/*/*/*/|grep -v ":"|sort|sed '/^$/d'
 	duplicates=$(ls pool/*/*/*/|grep -v ":"|sed '/^$/d'|xargs ls buildroot/pool/*/*/*/|grep -v ":"|sed '/^$/d')
 	
-	for duplicate in ${duplicates}; do
+	# commented out for now, since it generates errors.
+	'for duplicate in ${duplicates}; do
 		mkdir -p ${rmfrompooldir}
 		mv -f pool/*/*/*/${duplicate} ${rmfrompooldir}
-	done
+	done'
 	
 	# remove empty directories from pool
 	find pool -empty -type d -delete

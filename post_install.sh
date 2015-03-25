@@ -168,7 +168,7 @@ chmod +x /target/home/desktop/set-passwd.sh
 chroot /target chown desktop:desktop /home/desktop/set-passwd.sh
 
 #
-# Add the XBMC repo
+# Add the XBMC/Kodi repo
 #
 cat - > /target/etc/apt/sources.list.d/xbmc.list << 'EOF'
 deb http://mirrors.xbmc.org/apt/steamos alchemist main
